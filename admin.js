@@ -267,6 +267,36 @@ async function loadJobs() {
 }
 
 /**
+ * Update Organization Datalist dynamically
+ */
+function updateOrgDatalist() {
+  if (!jobs.length) return;
+
+  const sources = new Set([
+    "SSC",
+    "IBPS",
+    "Railway",
+    "UPSC",
+    "State Govt",
+    "Defence",
+    "Police",
+    "Teaching",
+  ]);
+
+  jobs.forEach((job) => {
+    if (job.source) sources.add(job.source);
+  });
+
+  const datalist = document.getElementById("orgs");
+  if (datalist) {
+    datalist.innerHTML = Array.from(sources)
+      .sort()
+      .map((src) => `<option value="${src}"></option>`)
+      .join("");
+  }
+}
+
+/**
  * Save jobs to localStorage
  */
 // Local storage save removed
@@ -279,6 +309,7 @@ function renderItemList() {
     renderBlogList();
   } else if (activeTab === "jobs") {
     renderJobList();
+    updateOrgDatalist();
   } else if (activeTab === "papers") {
     renderPaperList();
   }
@@ -970,6 +1001,7 @@ async function init() {
   theme.init();
   checkSession();
   await Promise.all([loadBlogs(), loadPapers(), loadJobs()]);
+  updateOrgDatalist();
   renderItemList();
   initEventListeners();
 }

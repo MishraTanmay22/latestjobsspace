@@ -162,6 +162,14 @@ function updateMetaTags(job) {
 }
 
 /**
+ * Format text with line breaks
+ */
+function formatText(text) {
+  if (!text) return "";
+  return escapeHtml(text).replace(/\n/g, "<br>");
+}
+
+/**
  * Render important dates table
  */
 function renderImportantDates(dates) {
@@ -376,9 +384,9 @@ function renderJobDetail(job) {
   elements.jobTitle.textContent = job.title;
 
   // Render overview section
-  elements.jobOverview.textContent =
-    job.overview ||
-    job.description ||
+  elements.jobOverview.innerHTML =
+    formatText(job.overview) ||
+    formatText(job.description) ||
     `This is an official notification for ${job.title} from ${job.source}. Visit the official website for complete details.`;
 
   // Render all sections
@@ -488,7 +496,14 @@ async function init() {
     // Find the specific job
     const job = allJobs.find((j) => j.id === jobId);
 
+    console.log("Searching for ID:", jobId);
+    console.log(
+      "Available IDs:",
+      allJobs.map((j) => j.id),
+    );
+
     if (!job) {
+      console.error("Job not found in list");
       showError();
       return;
     }

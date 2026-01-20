@@ -38,11 +38,12 @@ export function useJobs() {
     }
 
     return data.map((job, index) => ({
+      ...job, // Preserve all original fields
       id: job.id || `job-${index}-${Date.now()}`,
       title: job.title || "Untitled Position",
       source: job.source || "Unknown",
-      date: job.date || null,
-      link: job.link || "#",
+      date: job.date || job.createdAt || null, // Fallback to createdAt
+      link: job.link || job.applyLink || "#", // Fallback to applyLink
     }));
   }
 
@@ -55,7 +56,9 @@ export function useJobs() {
     notifyListeners();
 
     try {
-      const response = await fetch(url);
+      // Add cache busting
+      const fetchUrl = `${url}?t=${Date.now()}`;
+      const response = await fetch(fetchUrl);
 
       if (!response.ok) {
         throw new Error(
