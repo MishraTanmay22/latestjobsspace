@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Dynamic meta tags will be updated by JavaScript -->
+    <meta
+      name="description"
+      content="Latest government job notification details. Apply now for upcoming vacancies in SSC, IBPS, Railway, UPSC and more."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="" />
+    <title>Job Details | Job Alert</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json" id="jobSchema">
+      {
+        "@context": "https://schema.org/",
+        "@type": "JobPosting",
+        "title": "",
+        "description": "",
+        "datePosted": "",
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": ""
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <a href="index.html" class="logo">
+            <svg
+              class="logo-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4ZM20 19H4V8H20V19Z"
+                fill="currentColor"
+              />
+              <path
+                d="M13 10H11V13H8V15H11V18H13V15H16V13H13V10Z"
+                fill="currentColor"
+              />
+            </svg>
+            <span class="logo-text">Job Alert</span>
+          </a>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <svg
+              class="theme-icon sun-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="5"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M12 2V4M12 20V22M4 12H2M22 12H20M5.64 5.64L4.22 4.22M19.78 19.78L18.36 18.36M5.64 18.36L4.22 19.78M19.78 4.22L18.36 5.64"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <svg
+              class="theme-icon moon-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb-list">
+            <li class="breadcrumb-item">
+              <a href="index.html" class="breadcrumb-link">Home</a>
+            </li>
+            <li class="breadcrumb-separator" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="index.html" class="breadcrumb-link">Jobs</a>
+            </li>
+            <li class="breadcrumb-separator" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </li>
+            <li class="breadcrumb-item breadcrumb-current" aria-current="page">
+              <span id="breadcrumbTitle">Job Details</span>
+            </li>
+          </ol>
+        </nav>
+
+        <!-- Job Detail Section -->
+        <article class="job-detail" id="jobDetail">
+          <!-- Skeleton Loader -->
+          <div class="job-detail-skeleton" id="jobSkeleton">
+            <div class="skeleton skeleton-source-lg"></div>
+            <div class="skeleton skeleton-title-lg"></div>
+            <div class="skeleton skeleton-title-lg" style="width: 60%"></div>
+            <div class="skeleton skeleton-meta"></div>
+            <div class="skeleton skeleton-desc"></div>
+            <div class="skeleton skeleton-desc"></div>
+            <div class="skeleton skeleton-desc" style="width: 80%"></div>
+            <div class="skeleton skeleton-btn-lg"></div>
+          </div>
+
+          <!-- Job Content (hidden until loaded) -->
+          <div class="job-detail-content hidden" id="jobContent">
+            <div class="job-detail-header">
+              <span class="job-source job-source-lg" id="jobSource"></span>
+              <div class="job-meta">
+                <time class="job-date job-date-lg" id="jobDate"></time>
+                <span class="job-updated" id="jobUpdated"></span>
+              </div>
+            </div>
+
+            <h1 class="job-detail-title" id="jobTitle"></h1>
+
+            <!-- Overview Section -->
+            <section class="job-content-section" id="overviewSection">
+              <h2 class="section-title">Overview</h2>
+              <p class="job-overview" id="jobOverview"></p>
+            </section>
+
+            <!-- Important Dates Section -->
+            <section class="job-content-section" id="datesSection">
+              <h2 class="section-title">Important Dates</h2>
+              <div class="dates-table-wrapper">
+                <table class="dates-table" id="datesTable">
+                  <thead>
+                    <tr>
+                      <th>Event</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="datesTableBody"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- Application Fee Section -->
+            <section class="job-content-section" id="feeSection">
+              <h2 class="section-title">Application Fee</h2>
+              <div class="fee-table-wrapper">
+                <table class="fee-table" id="feeTable">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Fee Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="feeTableBody"></tbody>
+                </table>
+              </div>
+              <p class="fee-note" id="feeNote"></p>
+            </section>
+
+            <!-- Age Limit Section -->
+            <section class="job-content-section" id="ageSection">
+              <h2 class="section-title">Age Limit &amp; Relaxation</h2>
+              <ul class="age-list" id="ageList"></ul>
+            </section>
+
+            <!-- Vacancy Details Section -->
+            <section class="job-content-section" id="vacancySection">
+              <h2 class="section-title">Vacancy Details</h2>
+              <p class="vacancy-details" id="vacancyDetails"></p>
+            </section>
+
+            <!-- Eligibility Section -->
+            <section class="job-content-section" id="eligibilitySection">
+              <h2 class="section-title">Eligibility Criteria</h2>
+              <ul class="eligibility-list" id="eligibilityList"></ul>
+            </section>
+
+            <!-- Selection Process Section -->
+            <section class="job-content-section" id="selectionSection">
+              <h2 class="section-title">Selection Process</h2>
+              <ol class="selection-list" id="selectionList"></ol>
+            </section>
+
+            <!-- How to Apply Section -->
+            <section class="job-content-section" id="applySection">
+              <h2 class="section-title">How to Apply</h2>
+              <ol class="apply-steps-list" id="applyStepsList"></ol>
+            </section>
+
+            <!-- Important Links Section -->
+            <section class="job-content-section" id="linksSection">
+              <h2 class="section-title">Important Links</h2>
+              <div class="links-grid" id="linksGrid"></div>
+            </section>
+
+            <!-- Available Posts Section -->
+            <section class="job-content-section" id="postsSection">
+              <h2 class="section-title">Available Posts</h2>
+              <p class="available-posts" id="availablePosts"></p>
+            </section>
+
+            <!-- FAQs Section -->
+            <section class="job-content-section" id="faqsSection">
+              <h2 class="section-title">Frequently Asked Questions</h2>
+              <div class="faqs-accordion" id="faqsAccordion"></div>
+            </section>
+
+            <!-- Quick Information -->
+            <section class="job-info-section">
+              <h2 class="section-title">Quick Information</h2>
+              <dl class="job-info-list">
+                <div class="job-info-item">
+                  <dt>Organization</dt>
+                  <dd id="jobOrg"></dd>
+                </div>
+                <div class="job-info-item">
+                  <dt>Posted On</dt>
+                  <dd id="jobPostedDate"></dd>
+                </div>
+                <div class="job-info-item">
+                  <dt>Official Website</dt>
+                  <dd>
+                    <a
+                      id="jobOfficialLink"
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    ></a>
+                  </dd>
+                </div>
+              </dl>
+            </section>
+
+            <div class="job-detail-actions">
+              <a
+                href="#"
+                id="applyBtn"
+                class="apply-btn apply-btn-lg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Apply Now
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 17L17 7M17 7H7M17 7V17"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <a href="index.html" class="back-btn">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 12H5M5 12L12 19M5 12L12 5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Back to Jobs
+              </a>
+            </div>
+          </div>
+
+          <!-- Error State -->
+          <div class="job-error hidden" id="jobError">
+            <svg
+              class="empty-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 9L15 15M15 9L9 15"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+            </svg>
+            <h2 class="empty-title">Job Not Found</h2>
+            <p class="empty-text">
+              The job you're looking for doesn't exist or has been removed.
+            </p>
+            <a href="index.html" class="back-btn back-btn-centered">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 12H5M5 12L12 19M5 12L12 5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Browse All Jobs
+            </a>
+          </div>
+        </article>
+
+        <!-- Related Jobs Section -->
+        <section class="related-jobs hidden" id="relatedJobs">
+          <h2 class="section-title">
+            More Jobs from <span id="relatedSource"></span>
+          </h2>
+          <div class="jobs-grid jobs-grid-sm" id="relatedJobsGrid"></div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p class="footer-text">
+          &copy; 2026 Job Alert. Stay informed, stay ahead.
+        </p>
+      </footer>
+    </div>
+
+    <!-- Fallback content for crawlers (noscript) -->
+    <noscript>
+      <div style="padding: 2rem; text-align: center">
+        <h1>Job Alert - Government Job Notifications</h1>
+        <p>
+          Please enable JavaScript to view job details and apply for positions.
+        </p>
+        <p>
+          Browse our latest government job notifications from SSC, IBPS,
+          Railway, UPSC and more.
+        </p>
+        <a href="index.html">View All Jobs</a>
+      </div>
+    </noscript>
+
+    <!-- Scripts -->
+    <script type="module" src="job.js"></script>
+  </body>
+</html>

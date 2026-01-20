@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Admin Panel | Job Alert</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Login Screen -->
+      <div class="admin-login" id="loginScreen">
+        <div class="login-card">
+          <h1 class="login-title">Admin Access</h1>
+          <p class="login-subtitle">Enter password to continue</p>
+          <form id="loginForm">
+            <input
+              type="password"
+              id="adminPassword"
+              class="login-input"
+              placeholder="Enter password"
+              autocomplete="current-password"
+            />
+            <button type="submit" class="login-btn">Login</button>
+          </form>
+          <p class="login-error hidden" id="loginError">Incorrect password</p>
+        </div>
+      </div>
+
+      <!-- Admin Panel -->
+      <div class="admin-panel hidden" id="adminPanel">
+        <!-- Header -->
+        <header class="admin-header">
+          <div class="admin-header-content">
+            <h1 class="admin-title">Admin Panel</h1>
+            <div class="admin-actions">
+              <button class="admin-btn" id="newItemBtn">+ New</button>
+              <button class="admin-btn admin-btn-outline" id="exportBtn">
+                Export JSON
+              </button>
+              <button class="admin-btn admin-btn-danger" id="logoutBtn">
+                Logout
+              </button>
+            </div>
+          </div>
+          <!-- Admin Tabs -->
+          <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="blogs">
+              Blog Manager
+            </button>
+            <button class="admin-tab" data-tab="jobs">Job Manager</button>
+            <button class="admin-tab" data-tab="papers">Papers Manager</button>
+          </div>
+        </header>
+
+        <main class="admin-main">
+          <!-- Sidebar -->
+          <aside class="admin-sidebar" id="adminSidebar">
+            <h2 class="panel-title" id="sidebarTitle">Published Blogs</h2>
+            <div class="item-list" id="itemList">
+              <!-- Items will be injected here -->
+            </div>
+          </aside>
+
+          <!-- Editor Panel -->
+          <section class="editor-panel" id="editorPanel">
+            <form id="blogForm" class="blog-form">
+              <input type="hidden" id="blogId" />
+
+              <!-- SEO Fields -->
+              <div class="form-section">
+                <h3 class="form-section-title">SEO Settings</h3>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="blogTitle">Blog Title (H1)</label>
+                    <input
+                      type="text"
+                      id="blogTitle"
+                      required
+                      placeholder="Enter blog title"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="blogSlug">URL Slug</label>
+                    <input
+                      type="text"
+                      id="blogSlug"
+                      required
+                      placeholder="seo-friendly-url-slug"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="metaTitle">Meta Title</label>
+                    <input
+                      type="text"
+                      id="metaTitle"
+                      required
+                      placeholder="Page title for search engines"
+                      maxlength="60"
+                    />
+                    <span class="char-count"
+                      ><span id="metaTitleCount">0</span>/60</span
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="metaDescription">Meta Description</label>
+                    <textarea
+                      id="metaDescription"
+                      rows="2"
+                      required
+                      placeholder="Brief description for search results"
+                      maxlength="160"
+                    ></textarea>
+                    <span class="char-count"
+                      ><span id="metaDescCount">0</span>/160</span
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="primaryKeyword">Primary Keyword</label>
+                    <input
+                      type="text"
+                      id="primaryKeyword"
+                      placeholder="Main keyword to target"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="secondaryKeywords">Secondary Keywords</label>
+                    <input
+                      type="text"
+                      id="secondaryKeywords"
+                      placeholder="keyword1, keyword2, keyword3"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Content Editor -->
+              <div class="form-section">
+                <h3 class="form-section-title">Blog Content (Markdown)</h3>
+                <div class="editor-toolbar">
+                  <button
+                    type="button"
+                    class="toolbar-btn"
+                    data-action="bold"
+                    title="Bold"
+                  >
+                    B
+                  </button>
+                  <button
+                    type="button"
+                    class="toolbar-btn"
+                    data-action="italic"
+                    title="Italic"
+                  >
+                    I
+                  </button>
+                  <button
+                    type="button"
+                    class="toolbar-btn"
+                    data-action="h2"
+                    title="Heading 2"
+                  >
+                    H2
+                  </button>
+                  <button
+                    type="button"
+                    class="toolbar-btn"
+                    data-action="h3"
+                    title="Heading 3"
+                  >
+                    H3
+                  </button>
+                  <button
+                    type="button"
+                    class="toolbar-btn"
+                    data-action="ul"
+                    title="Bullet List"
+                  >
+                    •
+                  </button>
+                  <button
+                    type="button"
+                    class="toolbar-btn"
+                    data-action="ol"
+                    title="Numbered List"
+                  >
+                    1.
+                  </button>
+                  <button
+                    type="button"
+                    class="toolbar-btn"
+                    data-action="link"
+                    title="Link"
+                  >
+                    🔗
+                  </button>
+                  <button
+                    type="button"
+                    class="toolbar-btn"
+                    data-action="table"
+                    title="Table"
+                  >
+                    ⊞
+                  </button>
+                </div>
+                <textarea
+                  id="blogContent"
+                  rows="20"
+                  required
+                  placeholder="Write your blog content in Markdown..."
+                ></textarea>
+                <div class="word-count">
+                  Word count: <span id="wordCount">0</span> | Min: 800
+                </div>
+              </div>
+
+              <!-- Related Links -->
+              <div class="form-section">
+                <h3 class="form-section-title">Internal Links</h3>
+                <div class="form-group">
+                  <label for="relatedJobs"
+                    >Related Job IDs (comma-separated)</label
+                  >
+                  <input
+                    type="text"
+                    id="relatedJobs"
+                    placeholder="ssc-cgl-2025, ibps-po-2025"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="relatedBlogs"
+                    >Related Blog Slugs (comma-separated)</label
+                  >
+                  <input
+                    type="text"
+                    id="relatedBlogs"
+                    placeholder="how-to-prepare-ssc, best-books-ibps"
+                  />
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="form-actions">
+                <button
+                  type="button"
+                  class="admin-btn admin-btn-outline"
+                  id="previewBtn"
+                >
+                  Preview
+                </button>
+                <button type="submit" class="admin-btn admin-btn-primary">
+                  Save Blog
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- Preview Panel -->
+          <section class="preview-panel hidden" id="previewPanel">
+            <div class="preview-header">
+              <h3>Preview</h3>
+              <button class="admin-btn admin-btn-outline" id="closePreview">
+                Close
+              </button>
+            </div>
+            <div class="preview-content" id="previewContent">
+              <!-- Rendered markdown will appear here -->
+            </div>
+          </section>
+
+          <!-- Papers Manager Panel -->
+          <section class="editor-panel hidden" id="papersEditorPanel">
+            <form id="paperForm" class="blog-form">
+              <input type="hidden" id="paperId" />
+
+              <div class="form-section">
+                <h3 class="form-section-title">Paper Details</h3>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="paperExam">Exam Name</label>
+                    <select id="paperExam" required>
+                      <option value="">Select Exam</option>
+                      <option value="ssc-cgl">SSC CGL</option>
+                      <option value="ssc-chsl">SSC CHSL</option>
+                      <option value="ssc-mts">SSC MTS</option>
+                      <option value="ibps-po">IBPS PO</option>
+                      <option value="ibps-clerk">IBPS Clerk</option>
+                      <option value="rrb-ntpc">Railway NTPC</option>
+                      <option value="rrb-group-d">Railway Group D</option>
+                      <option value="upsc-cse">UPSC CSE</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="paperYear">Year</label>
+                    <select id="paperYear" required>
+                      <option value="">Select Year</option>
+                      <option value="2025">2025</option>
+                      <option value="2024">2024</option>
+                      <option value="2023">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                      <option value="2020">2020</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="paperSubject">Subject</label>
+                    <select id="paperSubject" required>
+                      <option value="">Select Subject</option>
+                      <option value="quantitative-aptitude">
+                        Quantitative Aptitude
+                      </option>
+                      <option value="reasoning">Reasoning Ability</option>
+                      <option value="english">English Language</option>
+                      <option value="general-awareness">
+                        General Awareness
+                      </option>
+                      <option value="complete">Complete Paper</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="paperPdfUrl"
+                      >PDF URL (Google Drive / Dropbox)</label
+                    >
+                    <input
+                      type="url"
+                      id="paperPdfUrl"
+                      placeholder="https://drive.google.com/file/d/..."
+                    />
+                  </div>
+                  <div class="form-group" style="grid-column: span 2">
+                    <label for="paperDescription">Description</label>
+                    <textarea
+                      id="paperDescription"
+                      rows="3"
+                      placeholder="Brief description of the paper..."
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="admin-btn admin-btn-primary">
+                  Save Paper
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- Jobs Manager Panel -->
+          <section class="editor-panel hidden" id="jobsEditorPanel">
+            <form id="jobForm" class="blog-form">
+              <input type="hidden" id="jobId" />
+
+              <div class="form-section">
+                <h3 class="form-section-title">Job Details</h3>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="jobTitle">Job Title</label>
+                    <input
+                      type="text"
+                      id="jobTitle"
+                      required
+                      placeholder="SSC CGL 2025 Notification"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="jobSlug">ID/Slug</label>
+                    <input
+                      type="text"
+                      id="jobSlug"
+                      required
+                      placeholder="ssc-cgl-2025"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="jobSource">Organization</label>
+                    <input
+                      list="orgs"
+                      id="jobSource"
+                      placeholder="Select or Type Organization"
+                      required
+                    />
+                    <datalist id="orgs">
+                      <option value="SSC"></option>
+                      <option value="IBPS"></option>
+                      <option value="Railway"></option>
+                      <option value="UPSC"></option>
+                      <option value="State Govt"></option>
+                      <option value="Defence"></option>
+                      <option value="Police"></option>
+                      <option value="Teaching"></option>
+                    </datalist>
+                  </div>
+                  <div class="form-group">
+                    <label for="jobVacancy">Total Vacancies</label>
+                    <input type="text" id="jobVacancy" placeholder="17727" />
+                  </div>
+                  <div class="form-group" style="grid-column: span 2">
+                    <label for="jobOverview">Overview</label>
+                    <textarea
+                      id="jobOverview"
+                      rows="3"
+                      placeholder="Brief overview of the job notification..."
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="jobApplyLink">Apply Link</label>
+                    <input
+                      type="url"
+                      id="jobApplyLink"
+                      placeholder="https://ssc.nic.in/..."
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>
+                      <input type="checkbox" id="jobFeatured" /> Featured on
+                      Homepage
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="admin-btn admin-btn-primary">
+                  Save Job
+                </button>
+              </div>
+            </form>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+  </body>
+</html>

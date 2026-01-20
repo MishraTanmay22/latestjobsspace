@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="" />
+    <meta property="og:site_name" content="LatestJobs.space" />
+    <meta name="publisher" content="Focusfr" />
+    <title>Previous Year Papers | LatestJobs.space</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <a href="index.html" class="logo">
+            <svg
+              class="logo-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4ZM20 19H4V8H20V19Z"
+                fill="currentColor"
+              />
+              <path
+                d="M13 10H11V13H8V15H11V18H13V15H16V13H13V10Z"
+                fill="currentColor"
+              />
+            </svg>
+            <span class="logo-text">LatestJobs.space</span>
+            <span class="logo-sub">by Focusfr</span>
+          </a>
+          <nav class="main-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="index.html#jobs" class="nav-link">Jobs</a>
+            <a href="blogs.html" class="nav-link">Blog</a>
+            <a href="papers.html" class="nav-link active"
+              >Previous Year Papers</a
+            >
+          </nav>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none">
+              <circle
+                cx="12"
+                cy="12"
+                r="5"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M12 2V4M12 20V22M4 12H2M22 12H20M5.64 5.64L4.22 4.22M19.78 19.78L18.36 18.36M5.64 18.36L4.22 19.78M19.78 4.22L18.36 5.64"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb-list">
+            <li class="breadcrumb-item">
+              <a href="index.html" class="breadcrumb-link">Home</a>
+            </li>
+            <li class="breadcrumb-separator" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="papers.html" class="breadcrumb-link">Papers</a>
+            </li>
+            <li class="breadcrumb-separator" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </li>
+            <li class="breadcrumb-item breadcrumb-current" aria-current="page">
+              <span id="breadcrumbTitle">Papers</span>
+            </li>
+          </ol>
+        </nav>
+
+        <!-- Paper Content -->
+        <article class="paper-article" id="paperArticle">
+          <!-- Skeleton -->
+          <div class="paper-skeleton" id="paperSkeleton">
+            <div class="skeleton skeleton-title-lg"></div>
+            <div class="skeleton skeleton-meta"></div>
+            <div class="skeleton skeleton-desc"></div>
+          </div>
+
+          <!-- Paper Content -->
+          <div class="paper-content hidden" id="paperContent">
+            <header class="paper-header">
+              <span class="paper-badge" id="paperExam"></span>
+              <h1 class="paper-title" id="paperTitle"></h1>
+              <div class="paper-meta">
+                <span class="paper-year" id="paperYear"></span>
+                <span class="paper-subject" id="paperSubject"></span>
+              </div>
+            </header>
+
+            <section class="paper-description">
+              <p id="paperDescription"></p>
+            </section>
+
+            <!-- Download Section -->
+            <section class="paper-download" id="downloadSection">
+              <h2 class="section-title">Download Paper</h2>
+              <a
+                href="#"
+                id="downloadBtn"
+                class="download-btn"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M21 15V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V15"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M7 10L12 15L17 10"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 15V3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Download PDF
+              </a>
+            </section>
+
+            <!-- Coming Soon -->
+            <section class="paper-coming-soon hidden" id="comingSoonSection">
+              <div class="coming-soon-card">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M12 6V12L16 14"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <h3>Papers Coming Soon</h3>
+                <p>
+                  We're currently adding papers for this exam. Bookmark this
+                  page and check back soon!
+                </p>
+              </div>
+            </section>
+
+            <!-- SEO Content -->
+            <section class="seo-content-section" id="seoContent">
+              <!-- Dynamic SEO content will be injected here -->
+            </section>
+
+            <!-- Related Jobs -->
+            <section class="related-section" id="relatedJobsSection">
+              <h2 class="section-title">Related Job Notifications</h2>
+              <div class="jobs-grid jobs-grid-sm" id="relatedJobsGrid"></div>
+            </section>
+
+            <!-- Related Papers -->
+            <section class="related-section" id="relatedPapersSection">
+              <h2 class="section-title">More Papers</h2>
+              <div class="papers-grid" id="relatedPapersGrid"></div>
+            </section>
+          </div>
+
+          <!-- Error State -->
+          <div class="paper-error hidden" id="paperError">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M9 9L15 15M15 9L9 15"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+            </svg>
+            <h2 class="empty-title">Papers Not Found</h2>
+            <p class="empty-text">
+              The papers you're looking for are not available yet.
+            </p>
+            <a href="papers.html" class="back-btn back-btn-centered"
+              >Browse All Papers</a
+            >
+          </div>
+        </article>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer-main">
+        <div class="footer-content">
+          <div class="footer-grid">
+            <div class="footer-column">
+              <h4 class="footer-heading">Popular Exams</h4>
+              <ul class="footer-links">
+                <li><a href="paper.html?exam=ssc-cgl">SSC CGL</a></li>
+                <li><a href="paper.html?exam=ssc-chsl">SSC CHSL</a></li>
+                <li><a href="paper.html?exam=ibps-po">IBPS PO</a></li>
+                <li><a href="paper.html?exam=rrb-ntpc">Railway NTPC</a></li>
+              </ul>
+            </div>
+            <div class="footer-column">
+              <h4 class="footer-heading">Resources</h4>
+              <ul class="footer-links">
+                <li><a href="index.html">Latest Jobs</a></li>
+                <li><a href="blogs.html">Preparation Tips</a></li>
+              </ul>
+            </div>
+            <div class="footer-column">
+              <h4 class="footer-heading">Quick Links</h4>
+              <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="papers.html">All Papers</a></li>
+              </ul>
+            </div>
+            <div class="footer-column"></div>
+          </div>
+          <div class="footer-bottom">
+            <p class="footer-brand">
+              &copy; 2026 LatestJobs.space &bull; Built by Focusfr
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="paper.js"></script>
+  </body>
+</html>

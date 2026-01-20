@@ -1,0 +1,39 @@
+# Netlify Security Headers for LatestJobs.space
+# Production-ready configuration for static site
+
+/*
+  # Prevent clickjacking - blocks site from being embedded in iframes
+  X-Frame-Options: SAMEORIGIN
+
+  # Prevent MIME type sniffing attacks
+  X-Content-Type-Options: nosniff
+
+  # Control referrer information sent to other sites
+  # strict-origin-when-cross-origin: sends full URL for same-origin, only domain for cross-origin
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # XSS protection for older browsers (modern browsers use CSP)
+  X-XSS-Protection: 1; mode=block
+
+  # Restrict browser features/APIs not needed by this static site
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()
+
+  # Prevent DNS prefetching to external domains
+  X-DNS-Prefetch-Control: off
+
+# Admin page - extra protection, no indexing
+/admin.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache, must-revalidate
+
+# JSON data files - prevent direct browser execution
+/*.json
+  Content-Type: application/json
+  X-Content-Type-Options: nosniff
+
+# Static assets - allow caching
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable

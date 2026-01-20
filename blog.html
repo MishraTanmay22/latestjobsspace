@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="" />
+    <title>Blog | Job Alert</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" id="blogSchema">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "description": "",
+        "datePublished": "",
+        "dateModified": "",
+        "author": {
+          "@type": "Organization",
+          "name": "Job Alert"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <a href="index.html" class="logo">
+            <svg
+              class="logo-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4ZM20 19H4V8H20V19Z"
+                fill="currentColor"
+              />
+              <path
+                d="M13 10H11V13H8V15H11V18H13V15H16V13H13V10Z"
+                fill="currentColor"
+              />
+            </svg>
+            <span class="logo-text">Job Alert</span>
+          </a>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <svg
+              class="theme-icon sun-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="5"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M12 2V4M12 20V22M4 12H2M22 12H20M5.64 5.64L4.22 4.22M19.78 19.78L18.36 18.36M5.64 18.36L4.22 19.78M19.78 4.22L18.36 5.64"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <svg
+              class="theme-icon moon-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb-list">
+            <li class="breadcrumb-item">
+              <a href="index.html" class="breadcrumb-link">Home</a>
+            </li>
+            <li class="breadcrumb-separator" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="blogs.html" class="breadcrumb-link">Blog</a>
+            </li>
+            <li class="breadcrumb-separator" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </li>
+            <li class="breadcrumb-item breadcrumb-current" aria-current="page">
+              <span id="breadcrumbTitle">Article</span>
+            </li>
+          </ol>
+        </nav>
+
+        <!-- Blog Article -->
+        <article class="blog-article" id="blogArticle">
+          <!-- Skeleton Loader -->
+          <div class="blog-skeleton" id="blogSkeleton">
+            <div class="skeleton skeleton-title-lg"></div>
+            <div class="skeleton skeleton-meta"></div>
+            <div class="skeleton skeleton-desc"></div>
+            <div class="skeleton skeleton-desc"></div>
+            <div class="skeleton skeleton-desc" style="width: 80%"></div>
+          </div>
+
+          <!-- Blog Content -->
+          <div class="blog-content hidden" id="blogContent">
+            <header class="blog-header">
+              <span class="blog-category" id="blogCategory"></span>
+              <h1 class="blog-title" id="blogTitle"></h1>
+              <div class="blog-meta-info">
+                <time class="blog-date" id="blogDate"></time>
+                <span class="blog-updated" id="blogUpdated"></span>
+              </div>
+            </header>
+
+            <div class="blog-body" id="blogBody">
+              <!-- Rendered markdown content -->
+            </div>
+
+            <!-- Related Jobs -->
+            <section class="related-section hidden" id="relatedJobsSection">
+              <h2 class="section-title">Related Job Notifications</h2>
+              <div class="jobs-grid jobs-grid-sm" id="relatedJobsGrid"></div>
+            </section>
+
+            <!-- Related Blogs -->
+            <section class="related-section hidden" id="relatedBlogsSection">
+              <h2 class="section-title">Related Articles</h2>
+              <div class="blogs-grid" id="relatedBlogsGrid"></div>
+            </section>
+          </div>
+
+          <!-- Error State -->
+          <div class="blog-error hidden" id="blogError">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M9 9L15 15M15 9L9 15"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+            </svg>
+            <h2 class="empty-title">Article Not Found</h2>
+            <p class="empty-text">
+              The article you're looking for doesn't exist.
+            </p>
+            <a href="index.html" class="back-btn back-btn-centered"
+              >Browse Jobs</a
+            >
+          </div>
+        </article>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p class="footer-text">
+          &copy; 2026 Job Alert. Stay informed, stay ahead.
+        </p>
+      </footer>
+    </div>
+
+    <noscript>
+      <div style="padding: 2rem; text-align: center">
+        <h1>Job Alert Blog</h1>
+        <p>Please enable JavaScript to view this article.</p>
+        <a href="index.html">View Jobs</a>
+      </div>
+    </noscript>
+
+    <script type="module" src="blog.js"></script>
+  </body>
+</html>
