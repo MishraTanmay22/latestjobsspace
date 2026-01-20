@@ -1,35 +1,11 @@
 [
   {
-    "id": "ssc-cgl-2023-quant",
-    "exam": "SSC CGL",
-    "examSlug": "ssc-cgl",
-    "year": "2023",
-    "subject": "Quantitative Aptitude",
-    "subjectSlug": "quantitative-aptitude",
-    "description": "SSC CGL 2023 Tier-I Quantitative Aptitude paper with solutions. Contains 25 questions covering arithmetic, algebra, geometry, and data interpretation.",
-    "pdfUrl": "",
-    "createdAt": "2026-01-15T10:00:00.000Z"
-  },
-  {
-    "id": "ssc-cgl-2023-reasoning",
-    "exam": "SSC CGL",
-    "examSlug": "ssc-cgl",
-    "year": "2023",
-    "subject": "Reasoning Ability",
-    "subjectSlug": "reasoning",
-    "description": "SSC CGL 2023 Tier-I Reasoning paper with detailed solutions. Covers analogy, classification, coding-decoding, and logical reasoning.",
-    "pdfUrl": "",
-    "createdAt": "2026-01-15T10:00:00.000Z"
-  },
-  {
-    "id": "ibps-po-2024-prelims",
-    "exam": "IBPS PO",
-    "examSlug": "ibps-po",
-    "year": "2024",
-    "subject": "Complete Paper",
-    "subjectSlug": "complete",
-    "description": "IBPS PO 2024 Preliminary exam complete paper with all sections. Practice the actual exam pattern.",
-    "pdfUrl": "",
-    "createdAt": "2026-01-18T10:00:00.000Z"
+    "id": "paper-1768946797390",
+    "exam": "ssc-cgl",
+    "year": "2022",
+    "subject": "complete",
+    "pdfUrl": "https://drive.google.com/file/d/15fvv-3l_5BQKdAjy0tt8JMtGn0SQ_pJo/view?usp=sharing",
+    "description": "6th December 2022, Tier - 1 ",
+    "createdAt": "2026-01-20T22:06:37.390Z"
   }
 ]

@@ -587,6 +587,12 @@ function savePaper(e) {
     subject: elements.paperSubject.value,
     pdfUrl: elements.paperPdfUrl.value,
     description: elements.paperDescription.value,
+
+    // SEO Fields
+    metaTitle: document.getElementById("paperMetaTitle").value,
+    metaDesc: document.getElementById("paperMetaDesc").value,
+    keywords: document.getElementById("paperKeywords").value,
+
     createdAt: new Date().toISOString(),
   };
 
@@ -645,6 +651,14 @@ function editPaper(id) {
   elements.paperPdfUrl.value = paper.pdfUrl || "";
   elements.paperDescription.value = paper.description || "";
 
+  // SEO Fields
+  if (document.getElementById("paperMetaTitle")) {
+    document.getElementById("paperMetaTitle").value = paper.metaTitle || "";
+    document.getElementById("paperMetaDesc").value = paper.metaDesc || "";
+    document.getElementById("paperKeywords").value = paper.keywords || "";
+  }
+
+  showPanel("papersEditorPanel");
   renderPaperList();
 }
 

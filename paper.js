@@ -243,32 +243,137 @@ async function renderPage() {
 
   // Find matching papers
   const matchingPapers = papers.filter((p) => {
-    if (exam && p.examSlug !== exam) return false;
-    if (year && p.year !== year) return false;
-    if (subject && p.subjectSlug !== subject) return false;
+    const paperExam = p.examSlug || p.exam;
+    if (exam && paperExam !== exam) return false;
     return true;
   });
 
-  if (matchingPapers.length > 0) {
-    const paper = matchingPapers[0];
-    elements.paperDescription.textContent =
-      paper.description || `Download ${title} for your exam preparation.`;
-
-    if (paper.pdfUrl) {
-      elements.downloadBtn.href = paper.pdfUrl;
-      elements.downloadSection.classList.remove("hidden");
-      elements.comingSoonSection.classList.add("hidden");
-    } else {
-      elements.downloadSection.classList.add("hidden");
-      elements.comingSoonSection.classList.remove("hidden");
-    }
-  } else {
-    elements.paperDescription.textContent = `Download ${title} for your exam preparation. Practice with actual exam papers to boost your preparation.`;
-    elements.downloadSection.classList.add("hidden");
+  if (matchingPapers.length === 0) {
     elements.comingSoonSection.classList.remove("hidden");
+    return;
   }
 
-  // SEO Content
+  elements.comingSoonSection.classList.add("hidden");
+
+  // Determine if we show details or list
+  // Show details only if Year AND Subject are present (legacy link)
+  // OR if the user explicitly clicked a single paper from the list (which we might handle via ID in future, but for now stick to year+subject)
+  const isSinglePaper = year && subject;
+
+  if (isSinglePaper) {
+    // SINGLE PAPER VIEW
+    document.getElementById("singlePaperView").classList.remove("hidden");
+    document.getElementById("paperControls").classList.add("hidden");
+    document.getElementById("papersListContainer").classList.add("hidden");
+
+    // Filter strictly
+    const paper = matchingPapers.find(
+      (p) =>
+        p.year === year && (p.subjectSlug === subject || p.subject === subject),
+    );
+
+    if (paper) {
+      elements.paperYear.textContent = paper.year;
+      elements.paperSubject.textContent =
+        SUBJECT_DATA[paper.subject] || paper.subject;
+      elements.paperDescription.textContent = paper.description;
+
+      if (paper.metaTitle) document.title = paper.metaTitle;
+      if (paper.metaDesc) {
+        const meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.setAttribute("content", paper.metaDesc);
+      }
+
+      if (paper.pdfUrl) {
+        elements.downloadBtn.href = paper.pdfUrl;
+        elements.downloadSection.classList.remove("hidden");
+      } else {
+        elements.downloadSection.classList.add("hidden");
+      }
+    }
+  } else {
+    // LISTING VIEW (Use Filters)
+    document.getElementById("singlePaperView").classList.add("hidden");
+    document.getElementById("paperControls").classList.remove("hidden");
+    document.getElementById("papersListContainer").classList.remove("hidden");
+
+    // Populate Filters
+    const years = [...new Set(matchingPapers.map((p) => p.year))]
+      .sort()
+      .reverse();
+    const subjects = [...new Set(matchingPapers.map((p) => p.subject))].sort();
+
+    const yearSelect = document.getElementById("filterYear");
+    const subjectSelect = document.getElementById("filterSubject");
+
+    // Populate only if empty
+    if (yearSelect.options.length === 1) {
+      years.forEach((y) => yearSelect.add(new Option(y, y)));
+    }
+    if (subjectSelect.options.length === 1) {
+      subjects.forEach((s) =>
+        subjectSelect.add(new Option(SUBJECT_DATA[s] || s, s)),
+      );
+    }
+
+    // Apply Local Filters
+    const selectedYear = yearSelect.value;
+    const selectedSubject = subjectSelect.value;
+
+    const filtered = matchingPapers.filter((p) => {
+      if (selectedYear && p.year !== selectedYear) return false;
+      if (selectedSubject && p.subject !== selectedSubject) return false;
+      return true;
+    });
+
+    document.getElementById("totalPapersCount").textContent =
+      `${filtered.length} Papers Found`;
+
+    // Group by Year
+    const papersByYear = {};
+    filtered.forEach((p) => {
+      if (!papersByYear[p.year]) papersByYear[p.year] = [];
+      papersByYear[p.year].push(p);
+    });
+
+    const container = document.getElementById("papersListContainer");
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="empty-state"><p class="empty-text">No papers match your filter.</p></div>`;
+    } else {
+      container.innerHTML = Object.keys(papersByYear)
+        .sort()
+        .reverse()
+        .map(
+          (yr) => `
+            <div class="year-group">
+                <h2 class="year-heading">${yr} Papers</h2>
+                <div class="papers-grid">
+                    ${papersByYear[yr]
+                      .map(
+                        (p) => `
+                        <div class="paper-card">
+                            <div class="paper-card-header">
+                                <span class="paper-tag">${SUBJECT_DATA[p.subject] || p.subject}</span>
+                            </div>
+                            <h3 class="paper-card-title">${p.description || p.subject + " Paper"}</h3>
+                            <a href="${p.pdfUrl || "#"}" target="_blank" class="paper-btn">Download PDF →</a>
+                        </div>
+                    `,
+                      )
+                      .join("")}
+                </div>
+            </div>
+        `,
+        )
+        .join("");
+    }
+
+    // Bind events if not already
+    yearSelect.onchange = renderPage;
+    subjectSelect.onchange = renderPage;
+  }
+
+  // SEO Content (Global)
   elements.seoContent.innerHTML = generateSEOContent(exam, year, subject);
 
   // Related jobs
