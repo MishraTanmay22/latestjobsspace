@@ -1,0 +1,25 @@
+{
+  "name": "jobs_alert",
+  "version": "1.0.0",
+  "description": "",
+  "main": "admin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MishraTanmay22/latestjobsspace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MishraTanmay22/latestjobsspace/issues"
+  },
+  "homepage": "https://github.com/MishraTanmay22/latestjobsspace#readme",
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.5",
+    "express": "^5.2.1"
+  }
+}

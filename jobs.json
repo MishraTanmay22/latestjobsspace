@@ -1,123 +1,5 @@
 [
   {
-    "id": "ssc-cgl-2025",
-    "title": "SSC CGL 2025 Notification - Combined Graduate Level Examination",
-    "source": "SSC",
-    "date": "2026-01-20",
-    "link": "https://ssc.nic.in",
-    "description": "Staff Selection Commission invites applications for Combined Graduate Level Examination 2025. Eligible candidates can apply for various Group B and C posts in central government ministries and departments.",
-    "overview": "The Staff Selection Commission (SSC) has released the official notification for the Combined Graduate Level (CGL) Examination 2025. This annual recruitment drive offers opportunities for graduate candidates seeking prestigious Group B and Group C positions across central government ministries, departments, and organizations. The SSC CGL 2025 examination remains one of India's most competitive government recruitment processes, attracting lakhs of aspirants nationwide. Successful candidates gain access to rewarding careers with excellent job security, competitive pay scales under the 7th Pay Commission, and comprehensive benefits including pension, medical facilities, and housing allowances. The examination structure includes multiple tiers designed to assess candidates' aptitude, reasoning abilities, quantitative skills, and domain knowledge. Candidates are advised to begin preparation early and refer exclusively to official sources for accurate information regarding the SSC CGL 2025 recruitment process.",
-    "applicationFee": {
-      "categories": [
-        { "category": "General / OBC / EWS", "amount": "Rs. 100" },
-        { "category": "SC / ST", "amount": "Exempted" },
-        { "category": "PwD", "amount": "Exempted" },
-        { "category": "Women (All Categories)", "amount": "Exempted" }
-      ],
-      "note": "Fee payment can be made through online modes including net banking, credit card, debit card, and UPI. No offline payment accepted."
-    },
-    "ageLimit": [
-      "Minimum Age: 18 years as on the specified cut-off date",
-      "Maximum Age: 27-32 years depending on the post applied",
-      "Age Relaxation for SC/ST: 5 years",
-      "Age Relaxation for OBC: 3 years",
-      "Age Relaxation for PwD: 10 years (additional relaxation for SC/ST/OBC PwD candidates)",
-      "Ex-Servicemen: As per government rules"
-    ],
-    "vacancyDetails": "The SSC CGL 2025 recruitment is expected to fill approximately 15,000-20,000 vacancies across various departments. Category-wise and post-wise vacancy breakup will be notified in the official notification. Major recruiting ministries include Ministry of Finance, Ministry of External Affairs, Central Board of Direct Taxes (CBDT), Central Board of Indirect Taxes and Customs (CBIC), and various attached and subordinate offices.",
-    "eligibility": [
-      "Educational Qualification: Bachelor's Degree in any discipline from a recognized University or equivalent",
-      "Nationality: Must be a citizen of India (certain posts have specific nationality requirements)",
-      "Physical Standards: As per requirements of specific posts (applicable for Inspector posts)",
-      "No minimum percentage required in graduation for most posts"
-    ],
-    "selectionProcess": [
-      "Tier-I: Computer Based Examination (100 questions, 200 marks, 60 minutes)",
-      "Tier-II: Computer Based Examination (Paper I mandatory, Papers II & III for specific posts)",
-      "Document Verification: Original documents verification at Regional Office",
-      "Medical Examination: For posts requiring physical standards",
-      "Final Merit List: Based on combined performance in all applicable stages"
-    ],
-    "importantDates": [
-      { "event": "Notification Release", "date": "January 20, 2026" },
-      { "event": "Online Application Start", "date": "January 25, 2026" },
-      { "event": "Last Date to Apply", "date": "February 25, 2026" },
-      { "event": "Application Correction Window", "date": "March 1-5, 2026" },
-      { "event": "Tier-I Exam Date", "date": "April 2026 (Tentative)" }
-    ],
-    "howToApply": [
-      "Visit the official SSC website at ssc.nic.in",
-      "Navigate to the 'Register' section if you are a new user",
-      "Complete One-Time Registration with valid email ID and mobile number",
-      "Login to your account and click on 'Apply' under CGL 2025",
-      "Fill the application form with accurate personal and educational details",
-      "Upload recent passport-size photograph (20-50 KB, JPG format)",
-      "Upload scanned signature (10-20 KB, JPG format)",
-      "Select examination centers as per your preference",
-      "Pay the application fee through online mode",
-      "Submit the application and download the confirmation page"
-    ],
-    "importantLinks": [
-      { "label": "Official Notification PDF", "url": "https://ssc.nic.in" },
-      { "label": "Apply Online", "url": "https://ssc.nic.in" },
-      { "label": "SSC Official Website", "url": "https://ssc.nic.in" }
-    ],
-    "posts": "Assistant Audit Officer (AAO), Assistant Accounts Officer (AAO), Assistant Section Officer (ASO), Inspector (CBDT/CBIC/CBI/Preventive Officer/Examiner), Sub-Inspector (CBI/NIA), Assistant Enforcement Officer (AEO), Tax Assistant, Upper Division Clerk (UDC), and Junior Statistical Officer (JSO)",
-    "faqs": [
-      {
-        "question": "What is the educational qualification required for SSC CGL 2025?",
-        "answer": "Candidates must possess a Bachelor's Degree in any discipline from a recognized University or equivalent. There is no minimum percentage requirement for most posts."
-      },
-      {
-        "question": "What is the age limit for SSC CGL 2025 examination?",
-        "answer": "The age limit varies by post, ranging from 18-27 years to 18-32 years. Age relaxation is provided for SC/ST (5 years), OBC (3 years), and PwD candidates (10 years) as per government norms."
-      },
-      {
-        "question": "What is the application fee for SSC CGL 2025?",
-        "answer": "The application fee is Rs. 100 for General, OBC, and EWS candidates. Women candidates and candidates belonging to SC, ST, and PwD categories are exempted from paying the fee."
-      },
-      {
-        "question": "How many attempts are allowed for SSC CGL examination?",
-        "answer": "There is no limit on the number of attempts for SSC CGL examination. Candidates can appear as many times as they wish, subject to meeting the age eligibility criteria."
-      },
-      {
-        "question": "What is the selection process for SSC CGL 2025?",
-        "answer": "The selection process consists of Tier-I (Computer Based Test), Tier-II (CBT with multiple papers), Document Verification, and Medical Examination for applicable posts. Final selection is based on combined merit."
-      }
-    ]
-  },
-  {
-    "id": "ibps-po-2025",
-    "title": "IBPS PO 2025 - Probationary Officer Recruitment",
-    "source": "IBPS",
-    "date": "2026-01-19",
-    "link": "https://ibps.in",
-    "description": "Institute of Banking Personnel Selection announces Probationary Officer recruitment for 2025. Apply for officer cadre positions in participating public sector banks across India.",
-    "overview": "The Institute of Banking Personnel Selection (IBPS) has announced the recruitment of Probationary Officers (PO) for the year 2025. This is a golden opportunity for graduates aspiring to build a career in the banking sector. IBPS PO examination is conducted to recruit officers in participating public sector banks across India. Selected candidates will undergo a probationary period and upon successful completion, will be confirmed as officers in the bank.",
-    "eligibility": [
-      "Educational Qualification: Graduation in any discipline from a recognized University",
-      "Age Limit: 20-30 years as on specified date",
-      "Computer Literacy: Candidates should have basic computer knowledge",
-      "Language Proficiency: Knowledge of local language of the state applying for"
-    ],
-    "importantDates": [
-      { "event": "Notification Release", "date": "January 19, 2026" },
-      { "event": "Online Registration Opens", "date": "February 1, 2026" },
-      { "event": "Last Date to Apply", "date": "February 28, 2026" },
-      { "event": "Preliminary Exam", "date": "March 2026 (Tentative)" }
-    ],
-    "howToApply": [
-      "Visit the official IBPS website at ibps.in",
-      "Click on 'CRP PO/MT-XV' link",
-      "Complete the registration process with valid credentials",
-      "Fill all required details in the online application form",
-      "Upload scanned photo, signature, and documents",
-      "Pay the application fee through online mode",
-      "Take printout of the completed application for future reference"
-    ],
-    "posts": "Probationary Officer/Management Trainee in various public sector banks including SBI, PNB, Bank of Baroda, Canara Bank, and more"
-  },
-  {
     "id": "railway-ntpc-2025",
     "title": "Railway RRB NTPC 2025 - Non-Technical Popular Categories",
     "source": "Railway",
@@ -132,10 +14,22 @@
       "Nationality: Indian citizens only"
     ],
     "importantDates": [
-      { "event": "Notification Date", "date": "January 18, 2026" },
-      { "event": "Application Start Date", "date": "February 5, 2026" },
-      { "event": "Application End Date", "date": "March 10, 2026" },
-      { "event": "CBT Stage-1 Exam", "date": "May 2026 (Tentative)" }
+      {
+        "event": "Notification Date",
+        "date": "January 18, 2026"
+      },
+      {
+        "event": "Application Start Date",
+        "date": "February 5, 2026"
+      },
+      {
+        "event": "Application End Date",
+        "date": "March 10, 2026"
+      },
+      {
+        "event": "CBT Stage-1 Exam",
+        "date": "May 2026 (Tentative)"
+      }
     ],
     "howToApply": [
       "Visit the official RRB website of your region",
@@ -163,10 +57,22 @@
       "Nationality: Citizen of India (some services have specific requirements)"
     ],
     "importantDates": [
-      { "event": "Notification Publication", "date": "January 17, 2026" },
-      { "event": "Start of Online Application", "date": "February 1, 2026" },
-      { "event": "Last Date to Apply", "date": "February 21, 2026" },
-      { "event": "Preliminary Examination", "date": "May 25, 2026" }
+      {
+        "event": "Notification Publication",
+        "date": "January 17, 2026"
+      },
+      {
+        "event": "Start of Online Application",
+        "date": "February 1, 2026"
+      },
+      {
+        "event": "Last Date to Apply",
+        "date": "February 21, 2026"
+      },
+      {
+        "event": "Preliminary Examination",
+        "date": "May 25, 2026"
+      }
     ],
     "howToApply": [
       "Visit UPSC official website upsconline.nic.in",
@@ -194,10 +100,22 @@
       "Physical Standards: No specific physical requirements"
     ],
     "importantDates": [
-      { "event": "Official Notification", "date": "January 15, 2026" },
-      { "event": "Online Application Begins", "date": "January 20, 2026" },
-      { "event": "Application Deadline", "date": "February 15, 2026" },
-      { "event": "Tier-I CBT Exam", "date": "March 2026" }
+      {
+        "event": "Official Notification",
+        "date": "January 15, 2026"
+      },
+      {
+        "event": "Online Application Begins",
+        "date": "January 20, 2026"
+      },
+      {
+        "event": "Application Deadline",
+        "date": "February 15, 2026"
+      },
+      {
+        "event": "Tier-I CBT Exam",
+        "date": "March 2026"
+      }
     ],
     "howToApply": [
       "Go to SSC official website ssc.nic.in",
@@ -225,10 +143,22 @@
       "Local Language: Proficiency in the official language of the State/UT opted for"
     ],
     "importantDates": [
-      { "event": "Notification Date", "date": "January 14, 2026" },
-      { "event": "Online Application Start", "date": "January 22, 2026" },
-      { "event": "Last Date to Apply", "date": "February 20, 2026" },
-      { "event": "Preliminary Examination", "date": "March 2026" }
+      {
+        "event": "Notification Date",
+        "date": "January 14, 2026"
+      },
+      {
+        "event": "Online Application Start",
+        "date": "January 22, 2026"
+      },
+      {
+        "event": "Last Date to Apply",
+        "date": "February 20, 2026"
+      },
+      {
+        "event": "Preliminary Examination",
+        "date": "March 2026"
+      }
     ],
     "howToApply": [
       "Visit IBPS official portal ibps.in",
@@ -256,10 +186,22 @@
       "Medical Standards: Must clear medical examination conducted by Railways"
     ],
     "importantDates": [
-      { "event": "Notification Release", "date": "January 12, 2026" },
-      { "event": "Registration Start", "date": "January 25, 2026" },
-      { "event": "Last Date of Application", "date": "March 1, 2026" },
-      { "event": "Computer Based Test", "date": "June 2026 (Tentative)" }
+      {
+        "event": "Notification Release",
+        "date": "January 12, 2026"
+      },
+      {
+        "event": "Registration Start",
+        "date": "January 25, 2026"
+      },
+      {
+        "event": "Last Date of Application",
+        "date": "March 1, 2026"
+      },
+      {
+        "event": "Computer Based Test",
+        "date": "June 2026 (Tentative)"
+      }
     ],
     "howToApply": [
       "Visit RRB regional website of your zone",
@@ -287,10 +229,22 @@
       "Physical Standards: Must meet the prescribed physical and medical standards"
     ],
     "importantDates": [
-      { "event": "Notification Date", "date": "January 10, 2026" },
-      { "event": "Online Application Opens", "date": "January 15, 2026" },
-      { "event": "Application Closing Date", "date": "February 10, 2026" },
-      { "event": "Written Examination", "date": "April 13, 2026" }
+      {
+        "event": "Notification Date",
+        "date": "January 10, 2026"
+      },
+      {
+        "event": "Online Application Opens",
+        "date": "January 15, 2026"
+      },
+      {
+        "event": "Application Closing Date",
+        "date": "February 10, 2026"
+      },
+      {
+        "event": "Written Examination",
+        "date": "April 13, 2026"
+      }
     ],
     "howToApply": [
       "Access UPSC online portal upsconline.nic.in",
@@ -318,10 +272,22 @@
       "No Experience Required: Freshers are eligible to apply"
     ],
     "importantDates": [
-      { "event": "Notification Published", "date": "January 8, 2026" },
-      { "event": "Registration Begins", "date": "January 15, 2026" },
-      { "event": "Registration Closes", "date": "February 10, 2026" },
-      { "event": "CBT Examination", "date": "March-April 2026" }
+      {
+        "event": "Notification Published",
+        "date": "January 8, 2026"
+      },
+      {
+        "event": "Registration Begins",
+        "date": "January 15, 2026"
+      },
+      {
+        "event": "Registration Closes",
+        "date": "February 10, 2026"
+      },
+      {
+        "event": "CBT Examination",
+        "date": "March-April 2026"
+      }
     ],
     "howToApply": [
       "Visit SSC official website ssc.nic.in",
@@ -351,10 +317,22 @@
       "Age Limit: 20-30 years (relaxation applicable for reserved categories)"
     ],
     "importantDates": [
-      { "event": "Official Notification", "date": "January 5, 2026" },
-      { "event": "Online Registration Start", "date": "January 12, 2026" },
-      { "event": "Last Date to Register", "date": "February 5, 2026" },
-      { "event": "Online Main Examination", "date": "February 2026" }
+      {
+        "event": "Official Notification",
+        "date": "January 5, 2026"
+      },
+      {
+        "event": "Online Registration Start",
+        "date": "January 12, 2026"
+      },
+      {
+        "event": "Last Date to Register",
+        "date": "February 5, 2026"
+      },
+      {
+        "event": "Online Main Examination",
+        "date": "February 2026"
+      }
     ],
     "howToApply": [
       "Go to IBPS website ibps.in",
@@ -382,10 +360,22 @@
       "No Experience Required: Fresh diploma/degree holders can apply"
     ],
     "importantDates": [
-      { "event": "Notification Release", "date": "January 3, 2026" },
-      { "event": "Application Start Date", "date": "January 15, 2026" },
-      { "event": "Application End Date", "date": "February 14, 2026" },
-      { "event": "CBT-1 Examination", "date": "April 2026 (Tentative)" }
+      {
+        "event": "Notification Release",
+        "date": "January 3, 2026"
+      },
+      {
+        "event": "Application Start Date",
+        "date": "January 15, 2026"
+      },
+      {
+        "event": "Application End Date",
+        "date": "February 14, 2026"
+      },
+      {
+        "event": "CBT-1 Examination",
+        "date": "April 2026 (Tentative)"
+      }
     ],
     "howToApply": [
       "Visit the official RRB website of your region",
@@ -413,10 +403,22 @@
       "Age Limit: 19-25 years (varies by academy)"
     ],
     "importantDates": [
-      { "event": "Notification Date", "date": "December 28, 2025" },
-      { "event": "Online Application Starts", "date": "January 5, 2026" },
-      { "event": "Last Date to Apply", "date": "February 1, 2026" },
-      { "event": "CDS Written Examination", "date": "April 2026" }
+      {
+        "event": "Notification Date",
+        "date": "December 28, 2025"
+      },
+      {
+        "event": "Online Application Starts",
+        "date": "January 5, 2026"
+      },
+      {
+        "event": "Last Date to Apply",
+        "date": "February 1, 2026"
+      },
+      {
+        "event": "CDS Written Examination",
+        "date": "April 2026"
+      }
     ],
     "howToApply": [
       "Visit UPSC online portal upsconline.nic.in",
@@ -445,10 +447,22 @@
       "Physical Efficiency Test: Male - 5km in 24 minutes, Female - 1.6km in 8.5 minutes"
     ],
     "importantDates": [
-      { "event": "Official Notification", "date": "December 25, 2025" },
-      { "event": "Application Begins", "date": "January 5, 2026" },
-      { "event": "Application Deadline", "date": "February 5, 2026" },
-      { "event": "CBT Exam", "date": "February-March 2026" }
+      {
+        "event": "Official Notification",
+        "date": "December 25, 2025"
+      },
+      {
+        "event": "Application Begins",
+        "date": "January 5, 2026"
+      },
+      {
+        "event": "Application Deadline",
+        "date": "February 5, 2026"
+      },
+      {
+        "event": "CBT Exam",
+        "date": "February-March 2026"
+      }
     ],
     "howToApply": [
       "Access SSC official website ssc.nic.in",
@@ -476,9 +490,18 @@
       "Officer Scale III: Degree with minimum 5 years experience as Officer in bank"
     ],
     "importantDates": [
-      { "event": "Notification Release", "date": "December 20, 2025" },
-      { "event": "Online Registration Opens", "date": "January 2, 2026" },
-      { "event": "Last Date for Registration", "date": "January 30, 2026" },
+      {
+        "event": "Notification Release",
+        "date": "December 20, 2025"
+      },
+      {
+        "event": "Online Registration Opens",
+        "date": "January 2, 2026"
+      },
+      {
+        "event": "Last Date for Registration",
+        "date": "January 30, 2026"
+      },
       {
         "event": "Preliminary Exam for Office Assistant",
         "date": "February 2026"
@@ -510,10 +533,22 @@
       "Vision Standards: Must meet the prescribed vision standards for ALP"
     ],
     "importantDates": [
-      { "event": "Notification Publication", "date": "December 15, 2025" },
-      { "event": "Application Start Date", "date": "January 1, 2026" },
-      { "event": "Application Closing Date", "date": "January 31, 2026" },
-      { "event": "First Stage CBT", "date": "March-April 2026" }
+      {
+        "event": "Notification Publication",
+        "date": "December 15, 2025"
+      },
+      {
+        "event": "Application Start Date",
+        "date": "January 1, 2026"
+      },
+      {
+        "event": "Application Closing Date",
+        "date": "January 31, 2026"
+      },
+      {
+        "event": "First Stage CBT",
+        "date": "March-April 2026"
+      }
     ],
     "howToApply": [
       "Go to the RRB website of your preferred zone",

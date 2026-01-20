@@ -21,6 +21,29 @@ let currentJobId = null;
 let currentPaperId = null;
 let activeTab = "blogs";
 
+/**
+ * Show save prompt after deletion
+ */
+function showSavePrompt(deletedId) {
+  if (activeTab === "blogs") renderBlogList();
+  else if (activeTab === "jobs") renderJobList();
+  else if (activeTab === "papers") renderPaperList();
+
+  const uniqueId = "save-btn-" + Date.now();
+  const promptHtml = `
+    <div class="item-list-item deleted-prompt" style="background-color: #fee2e2; border-color: #ef4444; cursor: default;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 0.8rem; font-weight: 600; color: #b91c1c;">Item Deleted</span>
+        <span style="font-size: 0.75rem; color: #b91c1c;">To apply changes to the live site, you must save the JSON.</span>
+        <button id="${uniqueId}" class="admin-btn admin-btn-primary" style="font-size: 0.75rem; padding: 4px 8px; align-self: flex-start; background: #dc2626;">Download / Save JSON Now</button>
+      </div>
+    </div>
+  `;
+
+  elements.itemList.insertAdjacentHTML("afterbegin", promptHtml);
+  document.getElementById(uniqueId).addEventListener("click", exportData);
+}
+
 // DOM Elements
 const elements = {
   loginScreen: document.getElementById("loginScreen"),
@@ -70,7 +93,9 @@ const elements = {
   jobFeatured: document.getElementById("jobFeatured"),
   // Buttons
   newItemBtn: document.getElementById("newItemBtn"),
-  exportBtn: document.getElementById("exportBtn"),
+  newItemBtn: document.getElementById("newItemBtn"),
+  importBtn: document.getElementById("importBtn"),
+  // exportBtn: document.getElementById("exportBtn"),
   logoutBtn: document.getElementById("logoutBtn"),
   previewBtn: document.getElementById("previewBtn"),
   closePreview: document.getElementById("closePreview"),
@@ -183,11 +208,15 @@ function generateId() {
 /**
  * Load blogs from localStorage
  */
-function loadBlogs() {
+/**
+ * Load blogs from Server
+ */
+async function loadBlogs() {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    blogs = stored ? JSON.parse(stored) : [];
+    const response = await fetch("blogs.json?t=" + Date.now());
+    blogs = response.ok ? await response.json() : [];
   } catch (e) {
+    console.warn("Failed to load blogs:", e);
     blogs = [];
   }
 }
@@ -198,22 +227,20 @@ function loadBlogs() {
 /**
  * Save blogs to localStorage
  */
-function saveBlogs() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(blogs));
-  } catch (e) {
-    console.error("Failed to save blogs:", e);
-  }
-}
+// Local storage save removed
 
 /**
  * Load papers from localStorage
  */
-function loadPapers() {
+/**
+ * Load papers from Server
+ */
+async function loadPapers() {
   try {
-    const stored = localStorage.getItem(PAPERS_STORAGE_KEY);
-    papers = stored ? JSON.parse(stored) : [];
+    const response = await fetch("papers.json?t=" + Date.now());
+    papers = response.ok ? await response.json() : [];
   } catch (e) {
+    console.warn("Failed to load papers:", e);
     papers = [];
   }
 }
@@ -221,22 +248,20 @@ function loadPapers() {
 /**
  * Save papers to localStorage
  */
-function savePapers() {
-  try {
-    localStorage.setItem(PAPERS_STORAGE_KEY, JSON.stringify(papers));
-  } catch (e) {
-    console.error("Failed to save papers:", e);
-  }
-}
+// Local storage save removed
 
 /**
  * Load jobs from localStorage
  */
-function loadJobs() {
+/**
+ * Load jobs from Server
+ */
+async function loadJobs() {
   try {
-    const stored = localStorage.getItem(JOBS_STORAGE_KEY);
-    jobs = stored ? JSON.parse(stored) : [];
+    const response = await fetch("jobs.json?t=" + Date.now());
+    jobs = response.ok ? await response.json() : [];
   } catch (e) {
+    console.warn("Failed to load jobs:", e);
     jobs = [];
   }
 }
@@ -244,13 +269,7 @@ function loadJobs() {
 /**
  * Save jobs to localStorage
  */
-function saveJobs() {
-  try {
-    localStorage.setItem(JOBS_STORAGE_KEY, JSON.stringify(jobs));
-  } catch (e) {
-    console.error("Failed to save jobs:", e);
-  }
-}
+// Local storage save removed
 
 /**
  * Render item list based on active tab
@@ -460,13 +479,14 @@ function deleteBlog(id) {
   if (!confirm("Are you sure you want to delete this blog?")) return;
 
   blogs = blogs.filter((b) => b.id !== id);
-  saveBlogs();
+  // saveBlogs(); removed
 
   if (currentBlogId === id) {
     clearForm();
   }
 
   renderBlogList();
+  saveDataToServer("blogs"); // Auto-save
 }
 
 /**
@@ -519,9 +539,10 @@ function saveBlog(e) {
     blogs.push(blog);
   }
 
-  saveBlogs();
+  // saveBlogs(); removed
   currentBlogId = blog.id;
   renderBlogList();
+  saveDataToServer("blogs"); // Auto-save to server
   alert("Blog saved successfully!");
 }
 
@@ -545,9 +566,10 @@ function savePaper(e) {
     papers.push(paper);
   }
 
-  savePapers();
+  // savePapers(); removed
   currentPaperId = paper.id;
   renderPaperList();
+  saveDataToServer("papers"); // Auto-save to server
   alert("Paper saved successfully!");
 }
 
@@ -573,9 +595,10 @@ function saveJob(e) {
     jobs.push(job);
   }
 
-  saveJobs();
+  // saveJobs(); removed
   currentJobId = job.id;
   renderJobList();
+  saveDataToServer("jobs"); // Auto-save to server
   alert("Job saved successfully!");
 }
 
@@ -597,8 +620,8 @@ function editPaper(id) {
 function deletePaper(id) {
   if (!confirm("Delete this paper?")) return;
   papers = papers.filter((p) => p.id !== id);
-  savePapers();
-  if (currentPaperId === id) clearForm();
+  // savePapers(); removed
+  saveDataToServer("papers"); // Auto-save
   renderPaperList();
 }
 
@@ -622,8 +645,8 @@ function editJob(id) {
 function deleteJob(id) {
   if (!confirm("Delete this job?")) return;
   jobs = jobs.filter((j) => j.id !== id);
-  saveJobs();
-  if (currentJobId === id) clearForm();
+  // saveJobs(); removed
+  saveDataToServer("jobs"); // Auto-save
   renderJobList();
 }
 
@@ -676,6 +699,73 @@ function exportData() {
   a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+/**
+ * Save data to Node.js Server
+ */
+async function saveDataToServer(type) {
+  let data;
+  if (type === "blogs") data = blogs;
+  else if (type === "jobs") data = jobs;
+  else if (type === "papers") data = papers;
+
+  try {
+    const response = await fetch(`/api/save/${type}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      console.log(`${type} saved to server.`);
+      // Optional: Show a small toast instead of alert to be less annoying
+    } else {
+      alert(`Failed to save ${type}: ${result.message}`);
+    }
+  } catch (error) {
+    console.error("Save error:", error);
+    alert("Error saving to server. Ensure Node.js server is running.");
+  }
+}
+
+/**
+ * Import data from static JSON
+ */
+async function importData() {
+  let filename;
+  if (activeTab === "blogs") filename = "blogs.json";
+  else if (activeTab === "jobs") filename = "jobs.json";
+  else if (activeTab === "papers") filename = "papers.json";
+
+  if (
+    !confirm(`Import data from ${filename}? This will overwrite current list.`)
+  )
+    return;
+
+  try {
+    const response = await fetch(filename);
+    if (!response.ok) throw new Error("File not found");
+    const data = await response.json();
+
+    if (activeTab === "blogs") {
+      blogs = data;
+      // saveBlogs(); removed
+      renderBlogList();
+    } else if (activeTab === "jobs") {
+      jobs = data;
+      // saveJobs(); removed
+      renderJobList();
+    } else if (activeTab === "papers") {
+      papers = data;
+      // savePapers(); removed
+      renderPaperList();
+    }
+    alert("Data imported successfully!");
+  } catch (error) {
+    alert("Error importing data: " + error.message);
+  }
 }
 
 /**
@@ -830,7 +920,8 @@ function initEventListeners() {
     elements.newItemBtn.addEventListener("click", clearForm);
   }
 
-  elements.exportBtn.addEventListener("click", exportData);
+  elements.importBtn.addEventListener("click", importData);
+  // elements.exportBtn.addEventListener("click", exportData);
   elements.blogForm.addEventListener("submit", saveBlog);
 
   // Preview
@@ -872,12 +963,13 @@ function initEventListeners() {
 /**
  * Initialize
  */
-function init() {
+/**
+ * Initialize
+ */
+async function init() {
   theme.init();
   checkSession();
-  loadBlogs();
-  loadPapers();
-  loadJobs();
+  await Promise.all([loadBlogs(), loadPapers(), loadJobs()]);
   renderItemList();
   initEventListeners();
 }

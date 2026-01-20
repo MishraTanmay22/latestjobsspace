@@ -5,7 +5,6 @@
 import { useTheme } from "./hooks/theme.js";
 
 const theme = useTheme();
-const STORAGE_KEY = "job-alert-blogs";
 
 // DOM Elements
 const elements = {
@@ -20,19 +19,8 @@ const elements = {
  * Load blogs from localStorage or JSON
  */
 async function loadBlogs() {
-  // Try localStorage first
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      return JSON.parse(stored);
-    }
-  } catch (e) {
-    console.warn("No localStorage blogs");
-  }
-
-  // Fallback to blogs.json
-  try {
-    const response = await fetch("blogs.json");
+    const response = await fetch("blogs.json?t=" + Date.now());
     if (response.ok) {
       return await response.json();
     }
