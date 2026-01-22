@@ -67,7 +67,9 @@ export function useJobs() {
       }
 
       const data = await response.json();
-      jobs = parseJobData(data);
+      jobs = parseJobData(data).sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
       isLoading = false;
       notifyListeners();
 

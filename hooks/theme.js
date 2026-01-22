@@ -103,21 +103,12 @@ export function useTheme() {
    * Initialize theme on page load
    */
   function init() {
-    // Priority: stored preference > system preference > default (light)
+    // Priority: stored preference > default (light)
     const storedTheme = getStoredTheme();
-    const initialTheme = storedTheme || getSystemPreference();
+    const initialTheme = storedTheme || THEME_LIGHT;
     applyTheme(initialTheme);
 
-    // Listen for system preference changes
-    if (window.matchMedia) {
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      mediaQuery.addEventListener("change", (e) => {
-        // Only auto-switch if user hasn't set a preference
-        if (!getStoredTheme()) {
-          applyTheme(e.matches ? THEME_DARK : THEME_LIGHT);
-        }
-      });
-    }
+    // System preference listener removed to enforce light default
   }
 
   /**
