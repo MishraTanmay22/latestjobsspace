@@ -588,10 +588,10 @@ function savePaper(e) {
     pdfUrl: elements.paperPdfUrl.value,
     description: elements.paperDescription.value,
 
-    // SEO Fields
-    metaTitle: document.getElementById("paperMetaTitle").value,
-    metaDesc: document.getElementById("paperMetaDesc").value,
-    keywords: document.getElementById("paperKeywords").value,
+    // SEO Fields (Safe Access)
+    metaTitle: document.getElementById("paperMetaTitle")?.value || "",
+    metaDesc: document.getElementById("paperMetaDesc")?.value || "",
+    keywords: document.getElementById("paperKeywords")?.value || "",
 
     createdAt: new Date().toISOString(),
   };
@@ -603,7 +603,6 @@ function savePaper(e) {
     papers.push(paper);
   }
 
-  // savePapers(); removed
   currentPaperId = paper.id;
   renderPaperList();
   saveDataToServer("papers"); // Auto-save to server

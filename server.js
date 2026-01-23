@@ -10,6 +10,20 @@ const PORT = 3000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json({ limit: "50mb" }));
+
+// Prevent caching for JSON files
+app.use((req, res, next) => {
+  if (req.url.endsWith(".json")) {
+    res.setHeader(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate",
+    );
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+  }
+  next();
+});
+
 app.use(express.static(__dirname)); // Serve static files from current directory
 
 // Admin Password (from your admin.js)
