@@ -91,6 +91,13 @@ function escapeHtml(text) {
  * Render jobs to the grid
  */
 function renderJobs(jobsList) {
+  // Sort jobs: Newest first
+  jobsList.sort((a, b) => {
+    const dateA = new Date(a.date || a.createdAt);
+    const dateB = new Date(b.date || b.createdAt);
+    return dateB - dateA; // Descending order
+  });
+
   if (jobsList.length === 0) {
     elements.jobsGrid.innerHTML = "";
     elements.emptyState.classList.remove("hidden");
