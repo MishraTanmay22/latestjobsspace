@@ -4,6 +4,7 @@
 
 import { useTheme } from "./hooks/theme.js";
 import { useJobs } from "./hooks/jobs.js";
+import { SEO } from "./hooks/pseo.js";
 
 const theme = useTheme();
 const jobs = useJobs();
@@ -195,7 +196,15 @@ function updateMetaTags(blog) {
  * Render blog content
  */
 function renderBlog(blog) {
-  updateMetaTags(blog);
+  // Programmatic SEO
+  SEO.updateMeta({
+    title: blog.metaTitle || `${blog.title} | Job Alert`,
+    description: blog.metaDescription,
+    url: window.location.href,
+    image: "https://latestjobs.space/assets/og-default.png",
+  });
+
+  SEO.injectSchema(SEO.generateBlogSchema(blog));
 
   elements.breadcrumbTitle.textContent =
     blog.title.length > 30 ? blog.title.substring(0, 30) + "..." : blog.title;

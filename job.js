@@ -5,6 +5,7 @@
 
 import { useTheme } from "./hooks/theme.js";
 import { useJobs } from "./hooks/jobs.js";
+import { SEO } from "./hooks/pseo.js";
 
 // Initialize hooks
 const theme = useTheme();
@@ -370,7 +371,17 @@ function renderFAQs(faqs) {
  */
 function renderJobDetail(job) {
   // Update meta tags
-  updateMetaTags(job);
+  // Update meta tags & Schema (Programmatic SEO)
+  SEO.updateMeta({
+    title: `${job.title} | Latest Government Job Notification`,
+    description:
+      job.description ||
+      `Apply for ${job.title}. Latest notification from ${job.source}. Check eligibility, important dates, and apply online.`,
+    url: window.location.href,
+    image: "https://latestjobs.space/assets/og-default.png",
+  });
+
+  SEO.injectSchema(SEO.generateJobSchema(job));
 
   // Update breadcrumb
   elements.breadcrumbTitle.textContent =

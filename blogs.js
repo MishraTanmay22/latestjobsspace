@@ -77,6 +77,9 @@ function createBlogCard(blog) {
 async function renderBlogs() {
   const blogs = await loadBlogs();
 
+  // Sort blogs: Newest first
+  blogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
   if (blogs.length === 0) {
     elements.featuredSection.classList.add("hidden");
     elements.allBlogs.innerHTML = "";
