@@ -91,12 +91,22 @@ function escapeHtml(text) {
  * Render jobs to the grid
  */
 function renderJobs(jobsList) {
-  // Sort jobs: Newest first
+  // Sort jobs: Newest first (Robust Sort)
   jobsList.sort((a, b) => {
-    const dateA = new Date(a.date || a.createdAt);
-    const dateB = new Date(b.date || b.createdAt);
-    return dateB - dateA; // Descending order
+    const d1 = new Date(a.date || a.createdAt);
+    const d2 = new Date(b.date || b.createdAt);
+
+    // Handle invalid dates
+    const t1 = isNaN(d1.getTime()) ? 0 : d1.getTime();
+    const t2 = isNaN(d2.getTime()) ? 0 : d2.getTime();
+
+    return t2 - t1; // Descending (Newest first)
   });
+
+  console.log(
+    "Job Sort Order:",
+    jobsList.map((j) => `${j.title} (${j.date})`),
+  );
 
   if (jobsList.length === 0) {
     elements.jobsGrid.innerHTML = "";
