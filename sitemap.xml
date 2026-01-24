@@ -3,25 +3,25 @@
     <!-- Static Pages -->
     <url>
         <loc>https://latestjobs.space/</loc>
-        <lastmod>2026-01-23T09:51:48.266Z</lastmod>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://latestjobs.space/jobs.html</loc>
-        <lastmod>2026-01-23T09:51:48.266Z</lastmod>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://latestjobs.space/blogs.html</loc>
-        <lastmod>2026-01-23T09:51:48.266Z</lastmod>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://latestjobs.space/papers.html</loc>
-        <lastmod>2026-01-23T09:51:48.266Z</lastmod>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -56,6 +56,12 @@
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>https://latestjobs.space/blog.html?slug=how-to-prepare-for-government-jobs-in-india-beginner-to-advanced-guide</loc>
+        <lastmod>2026-01-24T17:35:05.731Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>https://latestjobs.space/job.html?id=job-1768943945653</loc>
         <lastmod>2026-01-20T21:29:52.901Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -84,5 +90,71 @@
         <lastmod>2026-01-23T09:49:43.771Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/job.html?id=job-1769275782086</loc>
+        <lastmod>2026-01-24T17:29:42.086Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/job.html?id=job-1769275874276</loc>
+        <lastmod>2026-01-24T17:31:14.276Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/?source=RRSB</loc>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/?source=Supreme%20Court%20Of%20India%20(SCI)</loc>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/?source=Police</loc>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/?source=Railway</loc>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/?source=UPSSSC</loc>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/?source=UP%20Police</loc>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/paper.html?exam=ssc-cgl</loc>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/paper.html?exam=ssc-cgl&amp;year=2022</loc>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://latestjobs.space/paper.html?exam=ssc-cgl&amp;year=2025</loc>
+        <lastmod>2026-01-24T17:51:29.027Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
     </url>
 </urlset>

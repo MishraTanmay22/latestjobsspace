@@ -6,6 +6,7 @@
 import { useTheme } from "./hooks/theme.js";
 import { useJobs } from "./hooks/jobs.js";
 import { useFilters } from "./hooks/filters.js";
+import { SEO } from "./hooks/pseo.js";
 
 // Initialize hooks
 const theme = useTheme();
@@ -253,9 +254,41 @@ async function init() {
   // Show loading state
   showSkeletons(6);
 
+  // Check URL params for filters
+  const params = new URLSearchParams(window.location.search);
+  const sourceParam = params.get("source");
+
   // Fetch jobs data
   try {
     await jobs.fetchJobs();
+
+    // Apply URL filter if present
+    if (sourceParam) {
+      // Small delay to ensure sources are populated
+      setTimeout(() => {
+        if (
+          elements.sourceFilter.querySelector(`option[value="${sourceParam}"]`)
+        ) {
+          elements.sourceFilter.value = sourceParam;
+          filters.setSource(sourceParam);
+
+          // Update SEO for this category
+          SEO.updateMeta({
+            title: `${sourceParam} Jobs 2026 - Latest Notifications | LatestJobs.space`,
+            description: `Apply for latest ${sourceParam} Jobs 2026. Get recruitment notifications, exam dates, eligibility, and online application links for ${sourceParam} vacancies.`,
+            url: window.location.href,
+          });
+
+          SEO.injectSchema({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            headline: `${sourceParam} Jobs 2026`,
+            description: `Latest recruitment notifications for ${sourceParam}`,
+            url: window.location.href,
+          });
+        }
+      }, 100);
+    }
   } catch (error) {
     console.error("Failed to load jobs:", error);
     elements.jobsGrid.innerHTML = "";

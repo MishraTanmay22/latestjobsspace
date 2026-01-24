@@ -2,14 +2,19 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6JGGSSBVV"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-B6JGGSSBVV"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-B6JGGSSBVV');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-B6JGGSSBVV");
     </script>
-    
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Dynamic meta tags will be updated by JavaScript -->
@@ -295,6 +300,24 @@
               </dl>
             </section>
 
+            <!-- Disclaimer -->
+            <div
+              class="job-disclaimer"
+              style="
+                margin: 2rem 0;
+                padding: 1rem;
+                background-color: var(--color-bg-secondary);
+                border-radius: var(--radius-md);
+                font-size: 0.9rem;
+                color: var(--color-text-secondary);
+                border-left: 4px solid var(--color-warning);
+              "
+            >
+              <strong>Disclaimer:</strong> Information on this website is for
+              reference only. We do not guarantee accuracy. Always verify
+              details from official sources.
+            </div>
+
             <div class="job-detail-actions">
               <a
                 href="#"
@@ -394,7 +417,12 @@
       <!-- Footer -->
       <footer class="footer">
         <p class="footer-text">
-          &copy; 2026 Job Alert. Stay informed, stay ahead.
+          &copy; 2026 Job Alert. Stay informed, stay ahead. |
+          <a
+            href="disclaimer.html"
+            style="color: inherit; text-decoration: underline"
+            >Disclaimer</a
+          >
         </p>
       </footer>
     </div>

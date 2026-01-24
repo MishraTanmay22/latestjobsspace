@@ -4,6 +4,7 @@
 
 import { useTheme } from "./hooks/theme.js";
 import { useJobs } from "./hooks/jobs.js";
+import { SEO } from "./hooks/pseo.js";
 
 const theme = useTheme();
 const jobs = useJobs();
@@ -375,6 +376,30 @@ async function renderPage() {
 
   // SEO Content (Global)
   elements.seoContent.innerHTML = generateSEOContent(exam, year, subject);
+
+  // Programmatic SEO: Update Meta & Schema
+  SEO.updateMeta({
+    title: `${title} | LatestJobs.space`,
+    description: `Download free ${title}. Practice with actual exam papers from ${
+      EXAM_DATA[exam]?.fullName || "government exams"
+    }.`,
+    url: window.location.href,
+    image: "https://latestjobs.space/assets/og-default.png",
+  });
+
+  // Generate BreadcrumbSchema or similar if needed, or simple WebPage schema
+  SEO.injectSchema({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: title,
+    description: `Collection of previous year question papers for ${
+      EXAM_DATA[exam]?.name || exam
+    }`,
+    provider: {
+      "@type": "Organization",
+      name: "LatestJobs.space",
+    },
+  });
 
   // Related jobs
   const org = EXAM_DATA[exam]?.org;
