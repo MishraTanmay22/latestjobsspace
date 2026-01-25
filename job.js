@@ -6,10 +6,12 @@
 import { useTheme } from "./hooks/theme.js";
 import { useJobs } from "./hooks/jobs.js";
 import { SEO } from "./hooks/pseo.js";
+import { useI18n } from "./hooks/i18n.js";
 
 // Initialize hooks
 const theme = useTheme();
 const jobs = useJobs();
+const i18n = useI18n();
 
 // DOM Elements
 const elements = {
@@ -48,9 +50,15 @@ const elements = {
   jobPostedDate: document.getElementById("jobPostedDate"),
   jobOfficialLink: document.getElementById("jobOfficialLink"),
   applyBtn: document.getElementById("applyBtn"),
-  relatedJobs: document.getElementById("relatedJobs"),
-  relatedSource: document.getElementById("relatedSource"),
   relatedJobsGrid: document.getElementById("relatedJobsGrid"),
+  // Sidebar elements
+  jobSidebar: document.getElementById("jobSidebar"),
+  syllabusBox: document.getElementById("syllabusBox"),
+  syllabusContent: document.getElementById("syllabusContent"),
+  jobTypesBox: document.getElementById("jobTypesBox"),
+  jobTypesList: document.getElementById("jobTypesList"),
+  shareBtn: document.getElementById("shareBtn"),
+  langToggle: document.getElementById("langToggle"),
 };
 
 /**
@@ -384,21 +392,42 @@ function renderJobDetail(job) {
   SEO.injectSchema(SEO.generateJobSchema(job));
 
   // Update breadcrumb
+  const breadcrumbCategory = document.querySelector(
+    ".breadcrumb-item:nth-child(3) .breadcrumb-link",
+  );
+  if (breadcrumbCategory) {
+    const typeMap = {
+      job: { text: "Jobs", link: "index.html#latest-jobs" },
+      admit_card: { text: "Admit Cards", link: "index.html#admit-cards" },
+      result: { text: "Results", link: "index.html#results" },
+    };
+    const typeInfo = typeMap[job.type] || typeMap["job"];
+    breadcrumbCategory.textContent = typeInfo.text;
+    breadcrumbCategory.href = typeInfo.link;
+  }
+  const bTitle = i18n.isHindi() && job.title_hi ? job.title_hi : job.title;
   elements.breadcrumbTitle.textContent =
-    job.title.length > 40 ? job.title.substring(0, 40) + "..." : job.title;
+    bTitle.length > 40 ? bTitle.substring(0, 40) + "..." : bTitle;
 
   // Update header content
   elements.jobSource.textContent = job.source;
   elements.jobDate.textContent = formatDate(job.date);
   elements.jobDate.setAttribute("datetime", job.date);
   elements.jobUpdated.textContent = formatRelativeDate(job.date);
-  elements.jobTitle.textContent = job.title;
+  elements.jobTitle.textContent =
+    i18n.isHindi() && job.title_hi ? job.title_hi : job.title;
 
   // Render overview section
+  const overviewText =
+    i18n.isHindi() && job.overview_hi
+      ? job.overview_hi
+      : job.overview || job.description;
   elements.jobOverview.innerHTML =
-    formatText(job.overview) ||
-    formatText(job.description) ||
+    formatText(overviewText) ||
     `This is an official notification for ${job.title} from ${job.source}. Visit the official website for complete details.`;
+
+  // Render Sidebar
+  renderSidebar(job);
 
   // Render all sections
   renderImportantDates(job.importantDates);
@@ -422,6 +451,58 @@ function renderJobDetail(job) {
   // Hide skeleton, show content
   elements.jobSkeleton.classList.add("hidden");
   elements.jobContent.classList.remove("hidden");
+
+  // Render Sidebar
+  renderSidebar(job);
+}
+
+/**
+ * Render Sidebar Section
+ */
+function renderSidebar(job) {
+  if (!elements.jobSidebar) return;
+  elements.jobSidebar.classList.remove("hidden");
+
+  // Syllabus
+  if (job.syllabus && job.syllabus.sections) {
+    elements.syllabusBox.classList.remove("hidden");
+    elements.syllabusContent.innerHTML = job.syllabus.sections
+      .map(
+        (s) => `
+      <div class="syllabus-item">
+        <h4 class="syllabus-subject">${escapeHtml(s.subject)}</h4>
+        <p class="syllabus-topics">${escapeHtml(s.topics)}</p>
+      </div>
+    `,
+      )
+      .join("");
+  } else {
+    elements.syllabusBox.classList.add("hidden");
+  }
+
+  // Job Types
+  if (job.job_types && job.job_types.length > 0) {
+    elements.jobTypesBox.classList.remove("hidden");
+    elements.jobTypesList.innerHTML = job.job_types
+      .map(
+        (type) => `
+      <li class="job-type-item">${escapeHtml(type)}</li>
+    `,
+      )
+      .join("");
+  } else {
+    elements.jobTypesBox.classList.add("hidden");
+  }
+
+  // Populate Important Links Box in Sidebar
+  const applyBtn = document.getElementById("sidebarApplyBtn");
+  const notificationBtn = document.getElementById("sidebarNotificationBtn");
+  const websiteBtn = document.getElementById("sidebarWebsiteBtn");
+
+  if (applyBtn) applyBtn.href = job.link || "#";
+  if (notificationBtn)
+    notificationBtn.href = job.notificationLink || job.link || "#";
+  if (websiteBtn) websiteBtn.href = job.sourceLink || job.link || "#";
 }
 
 /**
@@ -477,9 +558,22 @@ function showError() {
  */
 function initEventListeners() {
   // Theme toggle
-  elements.themeToggle.addEventListener("click", () => {
-    theme.toggleTheme();
-  });
+  if (elements.themeToggle) {
+    elements.themeToggle.addEventListener("click", () => {
+      theme.toggleTheme();
+    });
+  }
+
+  // Language toggle
+  if (elements.langToggle) {
+    elements.langToggle.addEventListener("click", () => {
+      const nextLang = i18n.getLanguage() === "en" ? "hi" : "en";
+      i18n.setLanguage(nextLang);
+      elements.langToggle.querySelector(".lang-text").textContent =
+        nextLang === "en" ? "HI" : "EN";
+      window.location.reload();
+    });
+  }
 }
 
 /**
@@ -488,6 +582,13 @@ function initEventListeners() {
 async function init() {
   // Initialize theme
   theme.init();
+
+  // Initialize i18n
+  i18n.init();
+  if (elements.langToggle) {
+    elements.langToggle.querySelector(".lang-text").textContent =
+      i18n.getLanguage() === "en" ? "HI" : "EN";
+  }
 
   // Set up event listeners
   initEventListeners();

@@ -16,9 +16,11 @@ const PAPERS_STORAGE_KEY = "job-alert-papers";
 let blogs = [];
 let jobs = [];
 let papers = [];
+let resources = [];
 let currentBlogId = null;
 let currentJobId = null;
 let currentPaperId = null;
+let currentResourceId = null;
 let activeTab = "blogs";
 
 /**
@@ -27,7 +29,8 @@ let activeTab = "blogs";
 function showSavePrompt(deletedId) {
   if (activeTab === "blogs") renderBlogList();
   else if (activeTab === "jobs") renderJobList();
-  else if (activeTab === "papers") renderPaperList();
+  else if (tabName === "papers") renderPaperList();
+  else if (tabName === "resources") renderResourceList();
 
   const uniqueId = "save-btn-" + Date.now();
   const promptHtml = `
@@ -80,6 +83,8 @@ const elements = {
   paperSubject: document.getElementById("paperSubject"),
   paperPdfUrl: document.getElementById("paperPdfUrl"),
   paperDescription: document.getElementById("paperDescription"),
+  paperSyllabus: document.getElementById("paperSyllabus"),
+  paperJobTypes: document.getElementById("paperJobTypes"),
   // Jobs editor
   jobsEditorPanel: document.getElementById("jobsEditorPanel"),
   jobForm: document.getElementById("jobForm"),
@@ -90,6 +95,13 @@ const elements = {
   jobVacancy: document.getElementById("jobVacancy"),
   jobOverview: document.getElementById("jobOverview"),
   jobApplyLink: document.getElementById("jobApplyLink"),
+  jobType: document.getElementById("jobType"),
+  jobStatus: document.getElementById("jobStatus"),
+  jobExamYear: document.getElementById("jobExamYear"),
+  jobSyllabus: document.getElementById("jobSyllabus"),
+  jobTypes: document.getElementById("jobTypes"),
+  jobTitleHi: document.getElementById("jobTitleHi"),
+  jobOverviewHi: document.getElementById("jobOverviewHi"),
   jobFeatured: document.getElementById("jobFeatured"),
   // Buttons
   newItemBtn: document.getElementById("newItemBtn"),
@@ -99,6 +111,13 @@ const elements = {
   logoutBtn: document.getElementById("logoutBtn"),
   previewBtn: document.getElementById("previewBtn"),
   closePreview: document.getElementById("closePreview"),
+  // Resources editor
+  resourcesEditorPanel: document.getElementById("resourcesEditorPanel"),
+  resourceForm: document.getElementById("resourceForm"),
+  resourceId: document.getElementById("resourceId"),
+  resourceTitle: document.getElementById("resourceTitle"),
+  resourceLink: document.getElementById("resourceLink"),
+  resourceCategory: document.getElementById("resourceCategory"),
 };
 
 /**
@@ -246,6 +265,19 @@ async function loadPapers() {
 }
 
 /**
+ * Load resources from Server
+ */
+async function loadResources() {
+  try {
+    const response = await fetch("resources.json?t=" + Date.now());
+    resources = response.ok ? await response.json() : [];
+  } catch (e) {
+    console.warn("Failed to load resources:", e);
+    resources = [];
+  }
+}
+
+/**
  * Save papers to localStorage
  */
 // Local storage save removed
@@ -307,11 +339,13 @@ function updateOrgDatalist() {
 function renderItemList() {
   if (activeTab === "blogs") {
     renderBlogList();
-  } else if (activeTab === "jobs") {
+  } else if (["jobs", "admit_cards", "results"].includes(activeTab)) {
     renderJobList();
     updateOrgDatalist();
   } else if (activeTab === "papers") {
     renderPaperList();
+  } else if (activeTab === "resources") {
+    renderResourceList();
   }
 }
 
@@ -361,15 +395,22 @@ function renderBlogList() {
  * Render job list
  */
 function renderJobList() {
-  elements.sidebarTitle.textContent = "Published Jobs";
+  const typeMap = {
+    jobs: "job",
+    admit_cards: "admit_card",
+    results: "result",
+  };
+  const currentType = typeMap[activeTab];
+  elements.sidebarTitle.textContent = `Published ${activeTab.replace("_", " ")}`;
 
-  if (jobs.length === 0) {
-    elements.itemList.innerHTML =
-      '<p class="no-items">No jobs yet. Add your first job!</p>';
+  const filteredJobs = jobs.filter((j) => j.type === currentType);
+
+  if (filteredJobs.length === 0) {
+    elements.itemList.innerHTML = `<p class="no-items">No ${activeTab.replace("_", " ")} yet. Add your first one!</p>`;
     return;
   }
 
-  const html = jobs
+  const html = filteredJobs
     .map(
       (job) => `
         <div class="item-list-item ${currentJobId === job.id ? "active" : ""}" data-id="${job.id}">
@@ -436,6 +477,45 @@ function renderPaperList() {
 }
 
 /**
+ * Render resource list
+ */
+function renderResourceList() {
+  elements.sidebarTitle.textContent = "Published Resources";
+
+  if (resources.length === 0) {
+    elements.itemList.innerHTML =
+      '<p class="no-items">No resources yet. Add your first resource!</p>';
+    return;
+  }
+
+  const html = resources
+    .map(
+      (res) => `
+        <div class="item-list-item ${currentResourceId === res.id ? "active" : ""}" data-id="${res.id}">
+            <h4 class="item-list-title">${escapeHtml(res.title)}</h4>
+            <span class="item-list-meta">${res.category}</span>
+            <div class="item-list-actions">
+                <button class="edit-btn" data-id="${res.id}" data-type="resource">Edit</button>
+                <button class="delete-btn" data-id="${res.id}" data-type="resource">Delete</button>
+            </div>
+        </div>
+    `,
+    )
+    .join("");
+
+  elements.itemList.innerHTML = html;
+
+  // Add event listeners
+  elements.itemList.querySelectorAll(".edit-btn").forEach((btn) => {
+    btn.addEventListener("click", () => editResource(btn.dataset.id));
+  });
+
+  elements.itemList.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", () => deleteResource(btn.dataset.id));
+  });
+}
+
+/**
  * Clear form
  */
 /**
@@ -465,7 +545,14 @@ function clearForm() {
     elements.paperPdfUrl.value = "";
     elements.paperDescription.value = "";
     renderPaperList();
-  } else if (activeTab === "jobs") {
+  } else if (activeTab === "resources") {
+    currentResourceId = null;
+    elements.resourceId.value = "";
+    elements.resourceTitle.value = "";
+    elements.resourceLink.value = "";
+    elements.resourceCategory.value = "syllabus";
+    renderResourceList();
+  } else if (["jobs", "admit_cards", "results"].includes(activeTab)) {
     currentJobId = null;
     elements.jobId.value = "";
     elements.jobTitle.value = "";
@@ -474,6 +561,19 @@ function clearForm() {
     elements.jobVacancy.value = "";
     elements.jobOverview.value = "";
     elements.jobApplyLink.value = "";
+    const typeMap = {
+      jobs: "job",
+      admit_cards: "admit_card",
+      results: "result",
+    };
+    elements.jobType.value = typeMap[activeTab];
+    elements.jobStatus.value =
+      activeTab === "results"
+        ? "out"
+        : activeTab === "admit_cards"
+          ? "soon"
+          : "live";
+    elements.jobExamYear.value = new Date().getFullYear().toString();
     elements.jobFeatured.checked = false;
     renderJobList();
   }
@@ -577,6 +677,30 @@ function saveBlog(e) {
   alert("Blog saved successfully!");
 }
 
+function saveResource(e) {
+  e.preventDefault();
+
+  const resource = {
+    id: currentResourceId || "res-" + Date.now(),
+    title: elements.resourceTitle.value.trim(),
+    link: elements.resourceLink.value.trim(),
+    category: elements.resourceCategory.value,
+    createdAt: new Date().toISOString(),
+  };
+
+  if (currentResourceId) {
+    const index = resources.findIndex((r) => r.id === currentResourceId);
+    if (index !== -1) resources[index] = resource;
+  } else {
+    resources.push(resource);
+  }
+
+  currentResourceId = resource.id;
+  renderResourceList();
+  saveDataToServer("resources");
+  alert("Resource saved successfully!");
+}
+
 function savePaper(e) {
   e.preventDefault();
 
@@ -587,6 +711,11 @@ function savePaper(e) {
     subject: elements.paperSubject.value,
     pdfUrl: elements.paperPdfUrl.value,
     description: elements.paperDescription.value,
+    syllabus: parseJSON(elements.paperSyllabus.value, null),
+    job_types: elements.paperJobTypes.value
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean),
 
     // SEO Fields (Safe Access)
     metaTitle: document.getElementById("paperMetaTitle")?.value || "",
@@ -620,6 +749,16 @@ function saveJob(e) {
     vacancy: elements.jobVacancy.value,
     overview: elements.jobOverview.value,
     applyLink: elements.jobApplyLink.value,
+    type: elements.jobType.value,
+    status: elements.jobStatus.value,
+    exam_year: elements.jobExamYear.value,
+    syllabus: parseJSON(elements.jobSyllabus.value, null),
+    job_types: elements.jobTypes.value
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean),
+    title_hi: elements.jobTitleHi.value,
+    overview_hi: elements.jobOverviewHi.value,
     featured: elements.jobFeatured.checked,
     createdAt: new Date().toISOString(),
   };
@@ -645,10 +784,16 @@ function editPaper(id) {
   currentPaperId = id;
   elements.paperId.value = id;
   elements.paperExam.value = paper.exam;
-  elements.paperYear.value = paper.year;
-  elements.paperSubject.value = paper.subject;
+  elements.paperYear.value = paper.year || "";
+  elements.paperSubject.value = paper.subject || "";
   elements.paperPdfUrl.value = paper.pdfUrl || "";
   elements.paperDescription.value = paper.description || "";
+  elements.paperSyllabus.value = paper.syllabus
+    ? JSON.stringify(paper.syllabus, null, 2)
+    : "";
+  elements.paperJobTypes.value = paper.job_types
+    ? paper.job_types.join(", ")
+    : "";
 
   // SEO Fields
   if (document.getElementById("paperMetaTitle")) {
@@ -659,6 +804,26 @@ function editPaper(id) {
 
   showPanel("papersEditorPanel");
   renderPaperList();
+}
+
+function editResource(id) {
+  const res = resources.find((r) => r.id === id);
+  if (!res) return;
+
+  currentResourceId = id;
+  elements.resourceId.value = id;
+  elements.resourceTitle.value = res.title;
+  elements.resourceLink.value = res.link;
+  elements.resourceCategory.value = res.category;
+
+  renderResourceList();
+}
+
+function deleteResource(id) {
+  if (!confirm("Delete this resource?")) return;
+  resources = resources.filter((r) => r.id !== id);
+  saveDataToServer("resources");
+  renderResourceList();
 }
 
 function deletePaper(id) {
@@ -679,9 +844,18 @@ function editJob(id) {
   elements.jobSlug.value = job.slug;
   elements.jobSource.value = job.source;
   elements.jobVacancy.value = job.vacancy;
-  elements.jobOverview.value = job.overview;
-  elements.jobApplyLink.value = job.applyLink;
-  elements.jobFeatured.checked = job.featured;
+  elements.jobOverview.value = job.overview || "";
+  elements.jobApplyLink.value = job.applyLink || "";
+  elements.jobType.value = job.type || "job";
+  elements.jobStatus.value = job.status || "live";
+  elements.jobExamYear.value = job.exam_year || "2026";
+  elements.jobSyllabus.value = job.syllabus
+    ? JSON.stringify(job.syllabus, null, 2)
+    : "";
+  elements.jobTypes.value = job.job_types ? job.job_types.join(", ") : "";
+  elements.jobTitleHi.value = job.title_hi || "";
+  elements.jobOverviewHi.value = job.overview_hi || "";
+  elements.jobFeatured.checked = job.featured || false;
 
   renderJobList();
 }
@@ -731,6 +905,9 @@ function exportData() {
   } else if (activeTab === "papers") {
     data = papers;
     filename = "papers.json";
+  } else if (activeTab === "resources") {
+    data = resources;
+    filename = "resources.json";
   } else {
     return;
   }
@@ -753,6 +930,7 @@ async function saveDataToServer(type) {
   if (type === "blogs") data = blogs;
   else if (type === "jobs") data = jobs;
   else if (type === "papers") data = papers;
+  else if (type === "resources") data = resources;
 
   try {
     const response = await fetch(`/api/save/${type}`, {
@@ -805,6 +983,9 @@ async function importData() {
       papers = data;
       // savePapers(); removed
       renderPaperList();
+    } else if (activeTab === "resources") {
+      resources = data;
+      renderResourceList();
     }
     alert("Data imported successfully!");
   } catch (error) {
@@ -932,14 +1113,21 @@ function switchTab(tabName) {
     elements.papersEditorPanel.classList.add("hidden");
   if (elements.jobsEditorPanel)
     elements.jobsEditorPanel.classList.add("hidden");
+  if (elements.resourcesEditorPanel)
+    elements.resourcesEditorPanel.classList.add("hidden");
 
   // Show correct editor based on tab
   if (tabName === "blogs" && elements.editorPanel) {
     elements.editorPanel.classList.remove("hidden");
   } else if (tabName === "papers" && elements.papersEditorPanel) {
     elements.papersEditorPanel.classList.remove("hidden");
-  } else if (tabName === "jobs" && elements.jobsEditorPanel) {
+  } else if (
+    ["jobs", "admit_cards", "results"].includes(tabName) &&
+    elements.jobsEditorPanel
+  ) {
     elements.jobsEditorPanel.classList.remove("hidden");
+  } else if (tabName === "resources" && elements.resourcesEditorPanel) {
+    elements.resourcesEditorPanel.classList.remove("hidden");
   }
 
   // Render appropriate list
@@ -992,6 +1180,8 @@ function initEventListeners() {
   if (elements.paperForm)
     elements.paperForm.addEventListener("submit", savePaper);
   if (elements.jobForm) elements.jobForm.addEventListener("submit", saveJob);
+  if (elements.resourceForm)
+    elements.resourceForm.addEventListener("submit", saveResource);
 
   // Character counts
   elements.metaTitle.addEventListener("input", updateCounts);
@@ -1005,6 +1195,18 @@ function initEventListeners() {
 }
 
 /**
+ * Parse JSON safely
+ */
+function parseJSON(str, fallback) {
+  try {
+    return str ? JSON.parse(str) : fallback;
+  } catch (e) {
+    console.error("Invalid JSON:", str);
+    return fallback;
+  }
+}
+
+/**
  * Initialize
  */
 /**
@@ -1013,7 +1215,7 @@ function initEventListeners() {
 async function init() {
   theme.init();
   checkSession();
-  await Promise.all([loadBlogs(), loadPapers(), loadJobs()]);
+  await Promise.all([loadBlogs(), loadPapers(), loadJobs(), loadResources()]);
   updateOrgDatalist();
   renderItemList();
   initEventListeners();

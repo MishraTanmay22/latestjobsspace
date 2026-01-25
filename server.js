@@ -48,6 +48,7 @@ app.post("/api/save/:type", (req, res) => {
   if (type === "jobs") filename = "jobs.json";
   else if (type === "blogs") filename = "blogs.json";
   else if (type === "papers") filename = "papers.json";
+  else if (type === "resources") filename = "resources.json";
   else return res.status(400).json({ success: false, message: "Invalid type" });
 
   const filePath = path.join(__dirname, filename);

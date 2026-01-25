@@ -6,6 +6,13 @@
     "subject": "complete",
     "pdfUrl": "https://drive.google.com/file/d/15fvv-3l_5BQKdAjy0tt8JMtGn0SQ_pJo/view?usp=sharing",
     "description": "6th December 2022, Tier - 1 ",
+    "syllabus": {
+      "sections": [
+        { "subject": "Math", "topics": "Algebra, Trigonometry, Geometry" },
+        { "subject": "English", "topics": "Grammar, Vocabulary, Comprehension" }
+      ]
+    },
+    "job_types": ["Income Tax Inspector", "Customs Inspector", "ASO"],
     "createdAt": "2026-01-20T22:06:37.390Z"
   },
   {

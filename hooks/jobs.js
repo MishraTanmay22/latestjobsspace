@@ -42,6 +42,9 @@ export function useJobs() {
       id: job.id || `job-${index}-${Date.now()}`,
       title: job.title || "Untitled Position",
       source: job.source || "Unknown",
+      type: job.type || "job",
+      status: job.status || "live",
+      exam_year: job.exam_year || "2026",
       date: job.date || job.createdAt || null, // Fallback to createdAt
       link: job.link || job.applyLink || "#", // Fallback to applyLink
     }));

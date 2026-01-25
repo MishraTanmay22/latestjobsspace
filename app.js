@@ -7,22 +7,31 @@ import { useTheme } from "./hooks/theme.js";
 import { useJobs } from "./hooks/jobs.js";
 import { useFilters } from "./hooks/filters.js";
 import { SEO } from "./hooks/pseo.js";
+import { useI18n } from "./hooks/i18n.js";
 
 // Initialize hooks
 const theme = useTheme();
 const jobs = useJobs();
+const i18n = useI18n();
 const filters = useFilters();
 
 // DOM Elements
 const elements = {
   themeToggle: document.getElementById("themeToggle"),
+  langToggle: document.getElementById("langToggle"),
   searchInput: document.getElementById("searchInput"),
   sourceFilter: document.getElementById("sourceFilter"),
   dateFilter: document.getElementById("dateFilter"),
   clearFilters: document.getElementById("clearFilters"),
-  jobsGrid: document.getElementById("jobsGrid"),
+  jobsGrid: document.getElementById("jobsGrid"), // Now for Latest Jobs
+  admitCardsGrid: document.getElementById("admitCardsGrid"),
+  resultsGrid: document.getElementById("resultsGrid"),
+  latestJobsUpdates: document.getElementById("latestJobsUpdates"),
+  admitCardsUpdates: document.getElementById("admitCardsUpdates"),
+  resultsUpdates: document.getElementById("resultsUpdates"),
   emptyState: document.getElementById("emptyState"),
   resultsCount: document.getElementById("resultsCount"),
+  resourcesGrid: document.getElementById("resourcesGrid"),
 };
 
 /**
@@ -45,12 +54,15 @@ function createSkeletonCard() {
 /**
  * Show skeleton loaders
  */
-function showSkeletons(count = 6) {
+function showSkeletons(count = 4) {
   const skeletons = Array(count)
     .fill(null)
     .map(() => createSkeletonCard())
     .join("");
   elements.jobsGrid.innerHTML = skeletons;
+  elements.admitCardsGrid.innerHTML = skeletons;
+  elements.resultsGrid.innerHTML = skeletons;
+  if (elements.resourcesGrid) elements.resourcesGrid.innerHTML = skeletons;
   elements.emptyState.classList.add("hidden");
 }
 
@@ -66,7 +78,7 @@ function createJobCard(job) {
                 <span class="job-source">${escapeHtml(job.source)}</span>
                 <time class="job-date" datetime="${job.date}">${formattedDate}</time>
             </div>
-            <h2 class="job-title">${escapeHtml(job.title)}</h2>
+            <h2 class="job-title">${escapeHtml(i18n.isHindi() && job.title_hi ? job.title_hi : job.title)}</h2>
             <div class="job-card-footer">
                 <a href="job.html?id=${job.id}" class="view-details-btn">
                     View Details
@@ -89,46 +101,82 @@ function escapeHtml(text) {
 }
 
 /**
- * Render jobs to the grid
+ * Render jobs to the grids based on categories
  */
 function renderJobs(jobsList) {
-  // Sort jobs: Newest first (Robust Sort)
+  // Sort jobs: Newest first
   jobsList.sort((a, b) => {
     const d1 = new Date(a.date || a.createdAt);
     const d2 = new Date(b.date || b.createdAt);
-
-    // Handle invalid dates
-    const t1 = isNaN(d1.getTime()) ? 0 : d1.getTime();
-    const t2 = isNaN(d2.getTime()) ? 0 : d2.getTime();
-
-    return t2 - t1; // Descending (Newest first)
+    return d2.getTime() - d1.getTime();
   });
-
-  console.log(
-    "Job Sort Order:",
-    jobsList.map((j) => `${j.title} (${j.date})`),
-  );
 
   if (jobsList.length === 0) {
     elements.jobsGrid.innerHTML = "";
+    elements.admitCardsGrid.innerHTML = "";
+    elements.resultsGrid.innerHTML = "";
     elements.emptyState.classList.remove("hidden");
-    elements.resultsCount.textContent = "No jobs found";
+    elements.resultsCount.textContent = "No items found";
     return;
   }
 
   elements.emptyState.classList.add("hidden");
-  elements.jobsGrid.innerHTML = jobsList
+
+  // Filter jobs by type
+  const latestJobs = jobsList.filter((j) => j.type === "job");
+  const admitCards = jobsList.filter((j) => j.type === "admit_card");
+  const results = jobsList.filter((j) => j.type === "result");
+
+  // Render grids (max 6 items each for featured sections)
+  elements.jobsGrid.innerHTML = latestJobs
+    .slice(0, 6)
+    .map((job) => createJobCard(job))
+    .join("");
+  elements.admitCardsGrid.innerHTML = admitCards
+    .slice(0, 6)
+    .map((job) => createJobCard(job))
+    .join("");
+  elements.resultsGrid.innerHTML = results
+    .slice(0, 6)
     .map((job) => createJobCard(job))
     .join("");
 
-  const totalJobs = jobs.getCount();
+  // Render Quick Updates
+  renderQuickUpdates(latestJobs, admitCards, results);
+
+  const totalItems = jobs.getCount();
   const filteredCount = jobsList.length;
 
   if (filters.hasActiveFilters()) {
-    elements.resultsCount.textContent = `Showing ${filteredCount} of ${totalJobs} jobs`;
+    elements.resultsCount.textContent = `Showing ${filteredCount} of ${totalItems} items`;
   } else {
-    elements.resultsCount.textContent = `${totalJobs} jobs available`;
+    elements.resultsCount.textContent = `${totalItems} items available`;
   }
+}
+
+/**
+ * Render Quick Updates links
+ */
+function renderQuickUpdates(jobs, admitCards, results) {
+  const createUpdateItem = (item) => `
+    <li class="quick-update-item">
+      <a href="job.html?id=${item.id}" class="quick-update-link">${escapeHtml(i18n.isHindi() && item.title_hi ? item.title_hi : item.title)}</a>
+      <span class="status-badge status-${item.status}">${item.status}</span>
+    </li>
+  `;
+
+  elements.latestJobsUpdates.innerHTML = jobs
+    .slice(0, 7)
+    .map(createUpdateItem)
+    .join("");
+  elements.admitCardsUpdates.innerHTML = admitCards
+    .slice(0, 7)
+    .map(createUpdateItem)
+    .join("");
+  elements.resultsUpdates.innerHTML = results
+    .slice(0, 7)
+    .map(createUpdateItem)
+    .join("");
 }
 
 /**
@@ -190,9 +238,22 @@ function debounce(fn, delay) {
  */
 function initEventListeners() {
   // Theme toggle
-  elements.themeToggle.addEventListener("click", () => {
-    theme.toggleTheme();
-  });
+  if (elements.themeToggle) {
+    elements.themeToggle.addEventListener("click", () => {
+      theme.toggleTheme();
+    });
+  }
+
+  // Language toggle
+  if (elements.langToggle) {
+    elements.langToggle.addEventListener("click", () => {
+      const nextLang = i18n.getLanguage() === "en" ? "hi" : "en";
+      i18n.setLanguage(nextLang);
+      elements.langToggle.querySelector(".lang-text").textContent =
+        nextLang === "en" ? "HI" : "EN";
+      applyFiltersAndRender();
+    });
+  }
 
   // Search input with debounce
   const debouncedSearch = debounce((value) => {
@@ -245,6 +306,13 @@ async function init() {
   // Initialize theme
   theme.init();
 
+  // Initialize i18n
+  i18n.init();
+  if (elements.langToggle) {
+    elements.langToggle.querySelector(".lang-text").textContent =
+      i18n.getLanguage() === "en" ? "HI" : "EN";
+  }
+
   // Set up event listeners
   initEventListeners();
 
@@ -258,9 +326,39 @@ async function init() {
   const params = new URLSearchParams(window.location.search);
   const sourceParam = params.get("source");
 
-  // Fetch jobs data
+  // Fetch jobs and resources data
   try {
-    await jobs.fetchJobs();
+    const [_, resourcesData] = await Promise.all([
+      jobs.fetchJobs(),
+      fetch("resources.json?t=" + Date.now()).then((r) =>
+        r.ok ? r.json() : [],
+      ),
+    ]);
+
+    if (elements.resourcesGrid) {
+      const syllabus = resourcesData.filter((r) => r.category === "syllabus");
+      const sscJobs = resourcesData.filter((r) => r.category === "ssc_jobs");
+      const important = resourcesData.filter((r) => r.category === "important");
+      const others = resourcesData.filter((r) => r.category === "others");
+
+      const createResourceList = (title, items) => {
+        if (!items.length) return "";
+        return `
+          <div class="popular-exam-item">
+            <h3 class="popular-exam-title">${title}</h3>
+            <ul class="popular-exam-links">
+              ${items.map((item) => `<li><a href="${item.link}">${escapeHtml(item.title)}</a></li>`).join("")}
+            </ul>
+          </div>
+        `;
+      };
+
+      elements.resourcesGrid.innerHTML =
+        createResourceList("Syllabus", syllabus) +
+        createResourceList("SSC Jobs", sscJobs) +
+        createResourceList("Important Links", important) +
+        createResourceList("Others", others);
+    }
 
     // Apply URL filter if present
     if (sourceParam) {

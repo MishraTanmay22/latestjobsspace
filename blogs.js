@@ -3,12 +3,15 @@
  */
 
 import { useTheme } from "./hooks/theme.js";
+import { useI18n } from "./hooks/i18n.js";
 
 const theme = useTheme();
+const i18n = useI18n();
 
 // DOM Elements
 const elements = {
   themeToggle: document.getElementById("themeToggle"),
+  langToggle: document.getElementById("langToggle"),
   featuredSection: document.getElementById("featuredSection"),
   featuredBlogs: document.getElementById("featuredBlogs"),
   allBlogs: document.getElementById("allBlogs"),
@@ -105,10 +108,26 @@ async function renderBlogs() {
  */
 function init() {
   theme.init();
+  i18n.init();
+
+  if (elements.langToggle) {
+    elements.langToggle.querySelector(".lang-text").textContent =
+      i18n.getLanguage() === "en" ? "HI" : "EN";
+  }
 
   elements.themeToggle.addEventListener("click", () => {
     theme.toggleTheme();
   });
+
+  if (elements.langToggle) {
+    elements.langToggle.addEventListener("click", () => {
+      const nextLang = i18n.getLanguage() === "en" ? "hi" : "en";
+      i18n.setLanguage(nextLang);
+      elements.langToggle.querySelector(".lang-text").textContent =
+        nextLang === "en" ? "HI" : "EN";
+      renderBlogs();
+    });
+  }
 
   renderBlogs();
 }

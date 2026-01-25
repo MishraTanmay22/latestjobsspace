@@ -3,10 +3,12 @@
  */
 
 import { useTheme } from "./hooks/theme.js";
+import { useI18n } from "./hooks/i18n.js";
 import { useJobs } from "./hooks/jobs.js";
 import { SEO } from "./hooks/pseo.js";
 
 const theme = useTheme();
+const i18n = useI18n();
 const jobs = useJobs();
 
 const STORAGE_KEY = "job-alert-blogs";
@@ -14,6 +16,8 @@ const STORAGE_KEY = "job-alert-blogs";
 // DOM Elements
 const elements = {
   themeToggle: document.getElementById("themeToggle"),
+  langToggle: document.getElementById("langToggle"),
+  featuredSection: document.getElementById("featuredSection"),
   breadcrumbTitle: document.getElementById("breadcrumbTitle"),
   blogSkeleton: document.getElementById("blogSkeleton"),
   blogContent: document.getElementById("blogContent"),
@@ -298,10 +302,29 @@ function showError() {
  */
 async function init() {
   theme.init();
+  i18n.init();
+
+  if (elements.langToggle) {
+    elements.langToggle.querySelector(".lang-text").textContent =
+      i18n.getLanguage() === "en" ? "HI" : "EN";
+  }
 
   elements.themeToggle.addEventListener("click", () => {
     theme.toggleTheme();
   });
+
+  if (elements.langToggle) {
+    elements.langToggle.addEventListener("click", () => {
+      const nextLang = i18n.getLanguage() === "en" ? "hi" : "en";
+      i18n.setLanguage(nextLang);
+      elements.langToggle.querySelector(".lang-text").textContent =
+        nextLang === "en" ? "HI" : "EN";
+      // Re-render the blog content if language changes
+      // This assumes blog content might be localized
+      // For now, just reload the page to apply language changes fully
+      window.location.reload();
+    });
+  }
 
   const slug = getSlugFromUrl();
 

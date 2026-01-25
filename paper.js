@@ -5,9 +5,11 @@
 import { useTheme } from "./hooks/theme.js";
 import { useJobs } from "./hooks/jobs.js";
 import { SEO } from "./hooks/pseo.js";
+import { useI18n } from "./hooks/i18n.js";
 
 const theme = useTheme();
 const jobs = useJobs();
+const i18n = useI18n();
 
 // Exam metadata for SEO content generation
 const EXAM_DATA = {
@@ -15,6 +17,25 @@ const EXAM_DATA = {
     name: "SSC CGL",
     fullName: "Staff Selection Commission Combined Graduate Level",
     org: "SSC",
+    jobTypes: [
+      "Income Tax Inspector",
+      "ASO",
+      "Central Excise Inspector",
+      "Statistical Investigator",
+    ],
+    syllabus: {
+      sections: [
+        {
+          subject: "Tier I: General Intelligence",
+          topics: "Analogies, Symbolism, Number Series, Figural Pattern.",
+        },
+        {
+          subject: "Tier I: Quantitative Aptitude",
+          topics:
+            "Computation of whole numbers, Decimals, Fractions, Profit & Loss.",
+        },
+      ],
+    },
   },
   "ssc-chsl": {
     name: "SSC CHSL",
@@ -40,6 +61,24 @@ const EXAM_DATA = {
     name: "Railway NTPC",
     fullName: "Railway Recruitment Board Non-Technical Popular Categories",
     org: "Railway",
+    jobTypes: [
+      "Commercial Apprentice",
+      "Goods Guard",
+      "Junior Accounts Assistant",
+      "Senior Clerk cum Typist",
+    ],
+    syllabus: {
+      sections: [
+        {
+          subject: "CBT: Mathematics",
+          topics: "Number System, BODMAS, Decimals, Fractions, LCM, HCF.",
+        },
+        {
+          subject: "CBT: General Intelligence",
+          topics: "Puzzles, Data Sufficiency, Syllogism.",
+        },
+      ],
+    },
   },
   "rrb-group-d": {
     name: "Railway Group D",
@@ -64,6 +103,7 @@ const SUBJECT_DATA = {
 // DOM Elements
 const elements = {
   themeToggle: document.getElementById("themeToggle"),
+  langToggle: document.getElementById("langToggle"),
   breadcrumbTitle: document.getElementById("breadcrumbTitle"),
   paperSkeleton: document.getElementById("paperSkeleton"),
   paperContent: document.getElementById("paperContent"),
@@ -81,6 +121,12 @@ const elements = {
   relatedJobsGrid: document.getElementById("relatedJobsGrid"),
   relatedPapersSection: document.getElementById("relatedPapersSection"),
   relatedPapersGrid: document.getElementById("relatedPapersGrid"),
+  // Sidebar elements
+  paperSidebar: document.getElementById("paperSidebar"),
+  syllabusBox: document.getElementById("syllabusBox"),
+  syllabusContent: document.getElementById("syllabusContent"),
+  jobTypesBox: document.getElementById("jobTypesBox"),
+  jobTypesList: document.getElementById("jobTypesList"),
 };
 
 /**
@@ -415,6 +461,67 @@ async function renderPage() {
   // Show content
   elements.paperSkeleton.classList.add("hidden");
   elements.paperContent.classList.remove("hidden");
+
+  // Render Sidebar
+  renderSidebar(exam, matchingPapers.length === 1 ? matchingPapers[0] : null);
+}
+
+/**
+ * Render Sidebar
+ */
+function renderSidebar(exam, paper = null) {
+  const examData = EXAM_DATA[exam] || {};
+  const data = {
+    syllabus: paper?.syllabus || examData.syllabus,
+    jobTypes: paper?.job_types || examData.jobTypes,
+  };
+
+  if ((!data.syllabus && !data.jobTypes) || !elements.paperSidebar) {
+    if (elements.paperSidebar) elements.paperSidebar.classList.add("hidden");
+    return;
+  }
+
+  elements.paperSidebar.classList.remove("hidden");
+
+  // Syllabus
+  if (data.syllabus && data.syllabus.sections) {
+    elements.syllabusBox.classList.remove("hidden");
+    elements.syllabusContent.innerHTML = data.syllabus.sections
+      .map(
+        (s) => `
+      <div class="syllabus-item">
+        <h4 class="syllabus-subject">${escapeHtml(s.subject)}</h4>
+        <p class="syllabus-topics">${escapeHtml(s.topics)}</p>
+      </div>
+    `,
+      )
+      .join("");
+  } else {
+    elements.syllabusBox.classList.add("hidden");
+  }
+
+  // Job Types
+  if (data.jobTypes && data.jobTypes.length > 0) {
+    elements.jobTypesBox.classList.remove("hidden");
+    elements.jobTypesList.innerHTML = data.jobTypes
+      .map(
+        (type) => `
+      <li class="job-type-item">${escapeHtml(type)}</li>
+    `,
+      )
+      .join("");
+  } else {
+    elements.jobTypesBox.classList.add("hidden");
+  }
+}
+
+/**
+ * Escape HTML
+ */
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 /**
@@ -434,6 +541,15 @@ function init() {
 
   elements.themeToggle.addEventListener("click", () => {
     theme.toggleTheme();
+  });
+
+  // Language toggle
+  elements.langToggle.addEventListener("click", () => {
+    const nextLang = i18n.getLanguage() === "en" ? "hi" : "en";
+    i18n.setLanguage(nextLang);
+    elements.langToggle.querySelector(".lang-text").textContent =
+      nextLang === "en" ? "HI" : "EN";
+    renderPage(); // Re-render paper in new language
   });
 
   renderPage();

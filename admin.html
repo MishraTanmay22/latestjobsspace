@@ -2,14 +2,19 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6JGGSSBVV"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-B6JGGSSBVV"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-B6JGGSSBVV');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-B6JGGSSBVV");
     </script>
-    
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
@@ -66,7 +71,16 @@
               Blog Manager
             </button>
             <button class="admin-tab" data-tab="jobs">Job Manager</button>
+            <button class="admin-tab" data-tab="admit_cards">
+              Admit Cards
+            </button>
+            <button class="admin-tab" data-tab="results">
+              Results Manager
+            </button>
             <button class="admin-tab" data-tab="papers">Papers Manager</button>
+            <button class="admin-tab" data-tab="resources">
+              Resources Manager
+            </button>
           </div>
         </header>
 
@@ -352,6 +366,23 @@
                       placeholder="Brief description of the paper..."
                     ></textarea>
                   </div>
+                  <div class="form-group">
+                    <label for="paperSyllabus">Syllabus Overview (JSON)</label>
+                    <textarea
+                      id="paperSyllabus"
+                      placeholder='{"sections": [{"subject": "Math", "topics": "Algebra"}]}'
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="paperJobTypes"
+                      >Department/Post Types (Comma Separated)</label
+                    >
+                    <input
+                      type="text"
+                      id="paperJobTypes"
+                      placeholder="Inspector, ASO, clerk"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -421,7 +452,7 @@
                     ></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="jobApplyLink">Apply Link</label>
+                    <label for="jobApplyLink">Apply/Check Link</label>
                     <input
                       type="url"
                       id="jobApplyLink"
@@ -429,9 +460,60 @@
                     />
                   </div>
                   <div class="form-group">
+                    <label for="jobType">Type</label>
+                    <select id="jobType" required>
+                      <option value="job">Job</option>
+                      <option value="admit_card">Admit Card</option>
+                      <option value="result">Result</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="jobStatus">Status</label>
+                    <select id="jobStatus" required>
+                      <option value="live">Live</option>
+                      <option value="soon">Soon</option>
+                      <option value="out">Out</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="jobExamYear">Exam Year</label>
+                    <input type="text" id="jobExamYear" placeholder="2026" />
+                  </div>
+                  <div class="form-group">
+                    <label for="jobSyllabus">Syllabus (JSON Format)</label>
+                    <textarea
+                      id="jobSyllabus"
+                      placeholder='{"sections": [{"subject": "Math", "topics": "Algebra"}]}'
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="jobTypes"
+                      >Job/Department Types (Comma Separated)</label
+                    >
+                    <input
+                      type="text"
+                      id="jobTypes"
+                      placeholder="Inspector, ASO, clerk"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="jobTitleHi">Hindi Title</label>
+                    <input
+                      type="text"
+                      id="jobTitleHi"
+                      placeholder="शीर्षक हिंदी में"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="jobOverviewHi">Hindi Overview</label>
+                    <textarea
+                      id="jobOverviewHi"
+                      placeholder="विवरण हिंदी में"
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
                     <label>
-                      <input type="checkbox" id="jobFeatured" /> Featured on
-                      Homepage
+                      <input type="checkbox" id="jobFeatured" /> Featured
                     </label>
                   </div>
                 </div>
@@ -440,6 +522,50 @@
               <div class="form-actions">
                 <button type="submit" class="admin-btn admin-btn-primary">
                   Save Job
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- Resources Manager Panel -->
+          <section class="editor-panel hidden" id="resourcesEditorPanel">
+            <form id="resourceForm" class="blog-form">
+              <input type="hidden" id="resourceId" />
+              <div class="form-section">
+                <h3 class="form-section-title">Resource Details</h3>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="resourceTitle">Title</label>
+                    <input
+                      type="text"
+                      id="resourceTitle"
+                      required
+                      placeholder="SSC CGL Syllabus 2026"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="resourceLink">Link URL</label>
+                    <input
+                      type="url"
+                      id="resourceLink"
+                      required
+                      placeholder="https://latestjobs.space/paper.html?..."
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="resourceCategory">Category</label>
+                    <select id="resourceCategory" required>
+                      <option value="syllabus">Syllabus</option>
+                      <option value="ssc_jobs">SSC Jobs</option>
+                      <option value="important">Important Links</option>
+                      <option value="others">Others</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="admin-btn admin-btn-primary">
+                  Save Resource
                 </button>
               </div>
             </form>
