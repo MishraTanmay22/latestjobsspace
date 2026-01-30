@@ -59,6 +59,9 @@ const elements = {
   jobTypesList: document.getElementById("jobTypesList"),
   shareBtn: document.getElementById("shareBtn"),
   langToggle: document.getElementById("langToggle"),
+  // Sidebar Resources
+  resourcesBox: document.getElementById("resourcesBox"),
+  resourcesContent: document.getElementById("resourcesContent"),
 };
 
 /**
@@ -454,6 +457,7 @@ function renderJobDetail(job) {
 
   // Render Sidebar
   renderSidebar(job);
+  loadSidebarResources();
 }
 
 /**
@@ -462,23 +466,6 @@ function renderJobDetail(job) {
 function renderSidebar(job) {
   if (!elements.jobSidebar) return;
   elements.jobSidebar.classList.remove("hidden");
-
-  // Syllabus
-  if (job.syllabus && job.syllabus.sections) {
-    elements.syllabusBox.classList.remove("hidden");
-    elements.syllabusContent.innerHTML = job.syllabus.sections
-      .map(
-        (s) => `
-      <div class="syllabus-item">
-        <h4 class="syllabus-subject">${escapeHtml(s.subject)}</h4>
-        <p class="syllabus-topics">${escapeHtml(s.topics)}</p>
-      </div>
-    `,
-      )
-      .join("");
-  } else {
-    elements.syllabusBox.classList.add("hidden");
-  }
 
   // Job Types
   if (job.job_types && job.job_types.length > 0) {
@@ -633,3 +620,32 @@ async function init() {
 
 // Start the application
 init();
+
+/**
+ * Load and render sidebar resources
+ */
+async function loadSidebarResources() {
+  if (!elements.resourcesBox || !elements.resourcesContent) return;
+
+  try {
+    const response = await fetch("resources.json?t=" + Date.now());
+    if (!response.ok) return;
+
+    const resources = await response.json();
+    if (resources && resources.length > 0) {
+      elements.resourcesBox.classList.remove("hidden");
+      elements.resourcesContent.innerHTML = resources
+        .map(
+          (res) => `
+        <div class="sidebar-resource-item">
+          <span class="icon">🔹</span>
+          <a href="${res.link}" class="sidebar-resource-link">${escapeHtml(res.title)}</a>
+        </div>
+      `,
+        )
+        .join("");
+    }
+  } catch (e) {
+    console.warn("Failed to load sidebar resources:", e);
+  }
+}

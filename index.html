@@ -289,7 +289,9 @@
         </section>
 
         <!-- Featured Sections -->
-        <section class="featured-sections">
+        <div class="layout-wrapper">
+          <div class="main-column">
+            <section class="featured-sections">
           <!-- Latest Jobs Section -->
           <div class="featured-category" id="latest-jobs">
             <div class="category-header">
@@ -323,68 +325,57 @@
             </div>
           </div>
 
-          <!-- Important Resources Section -->
-          <div class="featured-category" id="important-resources">
-            <div class="category-header">
-              <h2 class="section-heading">Important Resources</h2>
-            </div>
-            <div class="popular-exams-grid" id="resourcesGrid">
-              <!-- Resources will be inserted here -->
+            <!-- Empty State (Unified) -->
+            <div class="empty-state hidden" id="emptyState">
+              <svg
+                class="empty-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 9L15 15M15 9L9 15"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+              <h3 class="empty-title">No Items Found</h3>
+              <p class="empty-text">Try adjusting your filters or search terms</p>
             </div>
           </div>
 
-          <!-- Empty State (Unified) -->
-          <div class="empty-state hidden" id="emptyState">
-            <svg
-              class="empty-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9 9L15 15M15 9L9 15"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-              <circle
-                cx="12"
-                cy="12"
-                r="9"
-                stroke="currentColor"
-                stroke-width="2"
-              />
-            </svg>
-            <h3 class="empty-title">No Items Found</h3>
-            <p class="empty-text">Try adjusting your filters or search terms</p>
-          </div>
-        </section>
+          </div> <!-- End main-column -->
 
-        <!-- Disclaimer -->
-        <div
-          class="homepage-disclaimer"
-          style="
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 var(--spacing-lg);
-            margin-bottom: var(--spacing-xl);
-          "
-        >
-          <div
-            style="
-              padding: 1rem;
-              background-color: var(--color-bg-secondary);
-              border-radius: var(--radius-md);
-              font-size: 0.9rem;
-              color: var(--color-text-secondary);
-              border-left: 4px solid var(--color-warning);
-            "
-          >
-            <strong>Disclaimer:</strong> Information on this website is for
-            reference only. We do not guarantee accuracy. Always verify details
-            from official sources.
-          </div>
-        </div>
+          <!-- Sidebar -->
+          <aside class="side-column">
+            <!-- Resource Card -->
+            <div class="sidebar-box resources-sidebar-box hidden" id="resourcesBox">
+              <h3 class="sidebar-title">
+                <span class="icon">📘</span> Important Resources
+              </h3>
+              <div class="sidebar-resources-list" id="resourcesContent">
+                <!-- Content injected via JS -->
+              </div>
+            </div>
+
+            <!-- Disclaimer in Sidebar -->
+            <div class="homepage-disclaimer-sidebar">
+              <strong>Disclaimer:</strong> Information on this website is for
+              reference only. We do not guarantee accuracy. Always verify details
+              from official sources.
+            </div>
+          </aside>
+        </div> <!-- End layout-wrapper -->
+      </main>
+
 
         <!-- Previous Year Papers Section -->
         <section

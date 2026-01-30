@@ -30,7 +30,7 @@ function showSavePrompt(deletedId) {
   if (activeTab === "blogs") renderBlogList();
   else if (activeTab === "jobs") renderJobList();
   else if (tabName === "papers") renderPaperList();
-  else if (tabName === "resources") renderResourceList();
+  else if (tabName === "papers") renderPaperList();
 
   const uniqueId = "save-btn-" + Date.now();
   const promptHtml = `
@@ -83,7 +83,6 @@ const elements = {
   paperSubject: document.getElementById("paperSubject"),
   paperPdfUrl: document.getElementById("paperPdfUrl"),
   paperDescription: document.getElementById("paperDescription"),
-  paperSyllabus: document.getElementById("paperSyllabus"),
   paperJobTypes: document.getElementById("paperJobTypes"),
   // Jobs editor
   jobsEditorPanel: document.getElementById("jobsEditorPanel"),
@@ -98,7 +97,6 @@ const elements = {
   jobType: document.getElementById("jobType"),
   jobStatus: document.getElementById("jobStatus"),
   jobExamYear: document.getElementById("jobExamYear"),
-  jobSyllabus: document.getElementById("jobSyllabus"),
   jobTypes: document.getElementById("jobTypes"),
   jobTitleHi: document.getElementById("jobTitleHi"),
   jobOverviewHi: document.getElementById("jobOverviewHi"),
@@ -711,7 +709,7 @@ function savePaper(e) {
     subject: elements.paperSubject.value,
     pdfUrl: elements.paperPdfUrl.value,
     description: elements.paperDescription.value,
-    syllabus: parseJSON(elements.paperSyllabus.value, null),
+    syllabus: null,
     job_types: elements.paperJobTypes.value
       .split(",")
       .map((s) => s.trim())
@@ -752,7 +750,7 @@ function saveJob(e) {
     type: elements.jobType.value,
     status: elements.jobStatus.value,
     exam_year: elements.jobExamYear.value,
-    syllabus: parseJSON(elements.jobSyllabus.value, null),
+    syllabus: null,
     job_types: elements.jobTypes.value
       .split(",")
       .map((s) => s.trim())
@@ -788,9 +786,6 @@ function editPaper(id) {
   elements.paperSubject.value = paper.subject || "";
   elements.paperPdfUrl.value = paper.pdfUrl || "";
   elements.paperDescription.value = paper.description || "";
-  elements.paperSyllabus.value = paper.syllabus
-    ? JSON.stringify(paper.syllabus, null, 2)
-    : "";
   elements.paperJobTypes.value = paper.job_types
     ? paper.job_types.join(", ")
     : "";
@@ -1126,9 +1121,6 @@ function switchTab(tabName) {
     elements.jobsEditorPanel
   ) {
     elements.jobsEditorPanel.classList.remove("hidden");
-  } else if (tabName === "resources" && elements.resourcesEditorPanel) {
-    elements.resourcesEditorPanel.classList.remove("hidden");
-  }
 
   // Render appropriate list
   renderItemList();

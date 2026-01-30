@@ -1,8 +1,9 @@
 [
   {
-    "id": "res-test",
-    "title": "Test Resource",
-    "link": "#",
-    "category": "syllabus"
+    "id": "res-default-1",
+    "title": "SSC CGL Syllabus 2026",
+    "link": "https://latestjobs.space/paper.html?exam=ssc-cgl",
+    "category": "syllabus",
+    "createdAt": "2026-01-25T15:00:00.000Z"
   }
 ]

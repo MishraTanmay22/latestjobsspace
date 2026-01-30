@@ -2748,6 +2748,32 @@ body {
 } /* ================================
    Job Layout & Sidebar
    ================================ */
+/* Layout Wrapper for Sidebar */
+.layout-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--spacing-2xl);
+  align-items: start;
+}
+
+.main-column {
+  min-width: 0;
+}
+
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  position: sticky;
+  top: 100px;
+}
+
+@media (max-width: 1024px) {
+  .layout-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
 .job-layout-wrapper {
   display: grid;
   grid-template-columns: 1fr 320px;

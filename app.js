@@ -32,6 +32,9 @@ const elements = {
   emptyState: document.getElementById("emptyState"),
   resultsCount: document.getElementById("resultsCount"),
   resourcesGrid: document.getElementById("resourcesGrid"),
+  // Sidebar Resources
+  resourcesBox: document.getElementById("resourcesBox"),
+  resourcesContent: document.getElementById("resourcesContent"),
 };
 
 /**
@@ -326,39 +329,9 @@ async function init() {
   const params = new URLSearchParams(window.location.search);
   const sourceParam = params.get("source");
 
-  // Fetch jobs and resources data
+  // Fetch jobs
   try {
-    const [_, resourcesData] = await Promise.all([
-      jobs.fetchJobs(),
-      fetch("resources.json?t=" + Date.now()).then((r) =>
-        r.ok ? r.json() : [],
-      ),
-    ]);
-
-    if (elements.resourcesGrid) {
-      const syllabus = resourcesData.filter((r) => r.category === "syllabus");
-      const sscJobs = resourcesData.filter((r) => r.category === "ssc_jobs");
-      const important = resourcesData.filter((r) => r.category === "important");
-      const others = resourcesData.filter((r) => r.category === "others");
-
-      const createResourceList = (title, items) => {
-        if (!items.length) return "";
-        return `
-          <div class="popular-exam-item">
-            <h3 class="popular-exam-title">${title}</h3>
-            <ul class="popular-exam-links">
-              ${items.map((item) => `<li><a href="${item.link}">${escapeHtml(item.title)}</a></li>`).join("")}
-            </ul>
-          </div>
-        `;
-      };
-
-      elements.resourcesGrid.innerHTML =
-        createResourceList("Syllabus", syllabus) +
-        createResourceList("SSC Jobs", sscJobs) +
-        createResourceList("Important Links", important) +
-        createResourceList("Others", others);
-    }
+    await jobs.fetchJobs();
 
     // Apply URL filter if present
     if (sourceParam) {
@@ -397,7 +370,37 @@ async function init() {
       "Please try refreshing the page";
     elements.resultsCount.textContent = "";
   }
+  loadSidebarResources();
 }
 
 // Start the application
 init();
+
+/**
+ * Load and render sidebar resources
+ */
+async function loadSidebarResources() {
+  if (!elements.resourcesBox || !elements.resourcesContent) return;
+
+  try {
+    const response = await fetch("resources.json?t=" + Date.now());
+    if (!response.ok) return;
+
+    const resources = await response.json();
+    if (resources && resources.length > 0) {
+      elements.resourcesBox.classList.remove("hidden");
+      elements.resourcesContent.innerHTML = resources
+        .map(
+          (res) => `
+        <div class="sidebar-resource-item">
+          <span class="icon">🔹</span>
+          <a href="${res.link}" class="sidebar-resource-link">${escapeHtml(res.title)}</a>
+        </div>
+      `,
+        )
+        .join("");
+    }
+  } catch (e) {
+    console.warn("Failed to load sidebar resources:", e);
+  }
+}
